@@ -19,7 +19,6 @@ public class MainPage {
 
     private final By loginButton = By.id("btn_login");
 
-    private final By logoutButton = By.id("btn_logout");
 
     public MainPage enterLoginUserIdInput(String userId){
         webDriverWait.until(visibilityOfElementLocated(loginIdInput))
