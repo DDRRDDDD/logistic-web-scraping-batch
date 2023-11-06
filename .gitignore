@@ -36,4 +36,4 @@ out/
 ### VS Code ###
 .vscode/
 
-application-sensitive.yml
+resources/application-sensitive.yml
