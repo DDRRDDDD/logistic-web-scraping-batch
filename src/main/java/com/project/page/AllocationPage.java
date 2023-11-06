@@ -48,7 +48,7 @@ public class AllocationPage {
         return this;
     }
     public AllocationDataPopup getAllocationDataPopupByTableIndex(int index){
-        /* TODO : 데이터 인덱스를 클릭했을 때 물류 데이터 팝업창이 나타난다*/
+
         return BeanContextUtils.getBean("allocationDataPopup", AllocationDataPopup.class);
     }
 
