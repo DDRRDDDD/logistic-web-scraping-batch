@@ -1,8 +1,7 @@
 package com.project.config;
 
-import static org.springframework.beans.factory.config.ConfigurableBeanFactory.*;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,11 +13,14 @@ import org.springframework.context.annotation.Scope;
 
 import java.time.Duration;
 
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.*;
 
+@Slf4j
 @Configuration
 public class WebDriverConfig {
 
-    private final Duration WAIT_DURATION_SECONDS = Duration.ofSeconds(20);
+
+    public static final Duration WAIT_TIMEOUT_SECONDS = Duration.ofSeconds(20);
 
     @Bean
     @Scope(SCOPE_SINGLETON)
@@ -37,15 +39,17 @@ public class WebDriverConfig {
     public WebDriver chromeDriver(ChromeOptions chromeOptions) {
         WebDriverManager.chromedriver().setup();
         WebDriver webDriver = new ChromeDriver(chromeOptions);
-        webDriver.manage().timeouts().pageLoadTimeout(WAIT_DURATION_SECONDS);
-        webDriver.manage().timeouts().scriptTimeout(WAIT_DURATION_SECONDS);
+        webDriver.manage().timeouts().pageLoadTimeout(WAIT_TIMEOUT_SECONDS);
+        webDriver.manage().timeouts().scriptTimeout(WAIT_TIMEOUT_SECONDS);
         return webDriver;
     }
 
     @Bean
-    @Scope
+    @Scope(SCOPE_SINGLETON)
     public WebDriverWait webDriverWait(WebDriver webDriver){
-        return new WebDriverWait(webDriver, WAIT_DURATION_SECONDS);
+        return new WebDriverWait(webDriver, WAIT_TIMEOUT_SECONDS);
     }
+
+
 
 }
