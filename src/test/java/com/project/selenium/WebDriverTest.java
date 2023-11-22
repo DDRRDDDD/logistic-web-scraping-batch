@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static com.project.config.WebDriverConfig.WAIT_TIMEOUT_SECONDS;
+import static com.project.webdriver.SeleniumConfig.DRIVER_WAIT_DURATION;
 
 
 @SpringBootTest
@@ -31,8 +31,8 @@ public class WebDriverTest {
     @BeforeEach
     public void beforeTest(@Autowired ChromeOptions options){
         webDriver = new ChromeDriver(options);
-        webDriver.manage().timeouts().pageLoadTimeout(WAIT_TIMEOUT_SECONDS);
-        webDriver.manage().timeouts().scriptTimeout(WAIT_TIMEOUT_SECONDS);
+        webDriver.manage().timeouts().pageLoadTimeout(DRIVER_WAIT_DURATION);
+        webDriver.manage().timeouts().scriptTimeout(DRIVER_WAIT_DURATION);
     }
 
     @Test
