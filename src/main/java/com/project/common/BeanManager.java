@@ -1,4 +1,4 @@
-package com.project.util;
+package com.project.common;
 
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeansException;
@@ -10,10 +10,14 @@ import org.springframework.stereotype.Component;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access=PRIVATE)
-public class BeanContextUtils {
+public class BeanManager {
 
     public static <T> T getBean(String beanName, Class<T> beanClass){
         return ApplicationContextProvider.getContext().getBean(beanName, beanClass);
+    }
+
+    public static <T> T getPage(Class<T> pageClass){
+        return ApplicationContextProvider.getContext().getBean(pageClass);
     }
 
 
