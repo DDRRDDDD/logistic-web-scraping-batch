@@ -18,7 +18,7 @@ public class Header {
     private WebElement myPageLinkAnchor;
 
     public MainPage goToMainPage(){
-        WebElementCommander.with(mainLogoAnchor).click();
+        mainLogoAnchor.click();
         return BeanManager.getPage(MainPage.class);
     }
 
