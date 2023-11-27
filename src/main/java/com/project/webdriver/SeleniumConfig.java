@@ -2,6 +2,7 @@ package com.project.webdriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,7 +22,7 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.*
 @Configuration
 public class SeleniumConfig {
     
-    private static final int WAIT_TIMEOUT_SECONDS = 20;
+    private static final int WAIT_TIMEOUT_SECONDS = 10;
     public static final Duration DRIVER_WAIT_DURATION = Duration.ofSeconds(WAIT_TIMEOUT_SECONDS);
 
 
@@ -29,7 +30,7 @@ public class SeleniumConfig {
     @Scope(SCOPE_SINGLETON)
     public ChromeOptions chromeOptions(){
         ChromeOptions options = new ChromeOptions();
-        options.setPageLoadStrategy(PageLoadStrategy.EAGER)
+        options.setPageLoadStrategy(PageLoadStrategy.NORMAL)
                 .addArguments("--incognito")
 //                .addArguments("headless")
                 .addArguments("--remote-allow-origins=*")
@@ -41,16 +42,15 @@ public class SeleniumConfig {
     @Scope(SCOPE_SINGLETON)
     public WebDriver chromeDriver(ChromeOptions chromeOptions) {
         WebDriverManager.chromedriver().setup();
-        WebDriver webDriver = new ChromeDriver(chromeOptions);
-        webDriver.manage().timeouts().pageLoadTimeout(DRIVER_WAIT_DURATION);
-        webDriver.manage().timeouts().scriptTimeout(DRIVER_WAIT_DURATION);
-        return webDriver;
+        return new ChromeDriver(chromeOptions);
     }
 
     @Bean
     @Scope(SCOPE_SINGLETON)
     public WebDriverWait webDriverWait(WebDriver webDriver){
-        return new WebDriverWait(webDriver, DRIVER_WAIT_DURATION);
+        WebDriverWait driverWait = new WebDriverWait(webDriver, DRIVER_WAIT_DURATION);
+        driverWait.ignoring(NoSuchElementException.class);
+        return driverWait;
     }
 
     @Bean
