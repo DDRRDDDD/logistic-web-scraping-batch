@@ -1,5 +1,6 @@
 package com.project.common;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -22,7 +23,7 @@ public class BeanManager {
 
 
     @Component
-    static class ApplicationContextProvider implements ApplicationContextAware {
+    private static class ApplicationContextProvider implements ApplicationContextAware {
 
         private static ApplicationContext context;
 
