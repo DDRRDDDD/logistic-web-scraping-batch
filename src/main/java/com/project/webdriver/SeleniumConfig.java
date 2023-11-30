@@ -21,7 +21,7 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.*
 @Slf4j
 @Configuration
 public class SeleniumConfig {
-    
+
     private static final int WAIT_TIMEOUT_SECONDS = 10;
     public static final Duration DRIVER_WAIT_DURATION = Duration.ofSeconds(WAIT_TIMEOUT_SECONDS);
 
@@ -38,7 +38,7 @@ public class SeleniumConfig {
         return options;
     }
 
-    @Bean
+    @Bean(destroyMethod="quit")
     @Scope(SCOPE_SINGLETON)
     public WebDriver chromeDriver(ChromeOptions chromeOptions) {
         WebDriverManager.chromedriver().setup();
