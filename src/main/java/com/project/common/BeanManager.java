@@ -1,6 +1,5 @@
 package com.project.common;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -32,7 +31,7 @@ public class BeanManager {
             context = applicationContext;
         }
 
-        public static ApplicationContext getContext(){
+        private static ApplicationContext getContext(){
             return context;
         }
     }
