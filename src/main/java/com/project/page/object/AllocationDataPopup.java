@@ -3,9 +3,11 @@ package com.project.page.object;
 import com.project.page.Page;
 import com.project.webdriver.WebDriverUtils;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
 
 import java.util.List;
 import java.util.Map;
@@ -41,12 +43,18 @@ public class AllocationDataPopup {
         );
     }
 
+    @PreDestroy
+    public void closePopup(){
+        WebDriverUtils.closeCurrentWindow();
+        WebDriverUtils.switchToWindow();
+    }
+
     public <T> T perform(T result){
         try{
             return result;
-        } finally {
-            WebDriverUtils.closeCurrentWindow();
-            WebDriverUtils.switchToWindow();
+        }
+        finally {
+            closePopup();
         }
     }
 
