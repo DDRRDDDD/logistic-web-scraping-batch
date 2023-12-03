@@ -2,7 +2,7 @@ package com.project.page.object;
 
 
 import com.project.common.BeanManager;
-import com.project.data.DateRange;
+import com.project.metadata.DateRange;
 import com.project.page.object.base.BasePage;
 import com.project.page.Page;
 import com.project.webdriver.WebElementCommander;

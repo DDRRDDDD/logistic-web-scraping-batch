@@ -1,4 +1,4 @@
-package com.project.data;
+package com.project.metadata;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

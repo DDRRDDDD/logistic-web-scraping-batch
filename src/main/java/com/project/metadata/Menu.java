@@ -1,4 +1,4 @@
-package com.project.data;
+package com.project.metadata;
 
 import com.project.page.object.AllocationPage;
 import lombok.AccessLevel;
