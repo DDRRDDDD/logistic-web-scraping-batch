@@ -7,6 +7,7 @@ import com.project.page.object.base.BasePage;
 import com.project.page.Page;
 import com.project.webdriver.WebElementCommander;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
@@ -41,6 +42,10 @@ public class AllocationPage extends BasePage {
         return this;
     }
 
+    public int getDataTableCount(){
+        return orderCodesByDataTable.size();
+    }
+
 
     public AllocationDataPopup openAllocationDataPopupByOrderCodeIndex(int orderCodeIndex){
         if(orderCodesByDataTable.size() <= orderCodeIndex){
@@ -49,4 +54,5 @@ public class AllocationPage extends BasePage {
         orderCodesByDataTable.get(orderCodeIndex).click();
         return BeanManager.getPage(AllocationDataPopup.class);
     }
+
 }
