@@ -1,8 +1,8 @@
 package com.project.selenium;
 
-import com.project.data.DateRange;
-import com.project.data.Menu;
-import com.project.data.UserInfo;
+import com.project.metadata.DateRange;
+import com.project.metadata.Menu;
+import com.project.metadata.UserInfo;
 import com.project.page.object.AllocationDataPopup;
 import com.project.page.object.AllocationPage;
 import com.project.page.object.MainPage;
@@ -19,6 +19,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 @SpringBootTest
@@ -86,7 +88,7 @@ public class PageObjectTest {
                 .toHeader();
 
         header.goToPageByMyPageMenu(allocationPageMenu)
-                .setDateRange(DateRange.of(2023, 11))
+                .setDateRange(DateRange.ofMonth(2023, 11))
                 .clickSearchButton();
     }
 
@@ -98,10 +100,83 @@ public class PageObjectTest {
 
         AllocationDataPopup dataPopup =
                 header.goToPageByMyPageMenu(allocationPageMenu)
-                .setDateRange(DateRange.of(2023, 11))
+                .setDateRange(DateRange.ofMonth(2023, 11))
                 .clickSearchButton()
                 .openAllocationDataPopupByOrderCodeIndex(0);
     }
+
+    @Test
+    @DisplayName("팝업 페이지에서 배차 데이터를 불러오는 테스트 (List)")
+    public void extractAllocationDataTest(){
+        Header header = mainPage.login(userInfo)
+                .toHeader();
+
+        AllocationDataPopup dataPopup =
+                header.goToPageByMyPageMenu(allocationPageMenu)
+                        .setDateRange(DateRange.ofMonth(2023, 11))
+                        .clickSearchButton()
+                        .openAllocationDataPopupByOrderCodeIndex(0);
+
+        Map<String, String> data = dataPopup.extractAllocationData();
+        data.keySet().forEach((key) -> log.info("{} : {}", key, data.get(key)));
+    }
+
+
+    @Test
+    @DisplayName("11월 배차 정보 전부 불러오는 테스트 (List)")
+    public void fetchNovemberAllocationData(){
+        Header header = mainPage.login(userInfo)
+                .toHeader();
+
+        AllocationPage allocationPage = header.goToPageByMyPageMenu(allocationPageMenu);
+
+        allocationPage.setDateRange(DateRange.ofMonth(2023, 11))
+                    .clickSearchButton();
+
+
+        int index = 0;
+        List<Map<String, String>> resultMap = new ArrayList<>();
+        AtomicBoolean isTrue = new AtomicBoolean(true);
+
+        while(isTrue.get()){
+            Optional.ofNullable(allocationPage.openAllocationDataPopupByOrderCodeIndex(index++))
+                    .ifPresentOrElse(
+                        (page) -> resultMap.add(page.extractAllocationData()),
+                        () -> isTrue.set(false)
+                    );
+        }
+
+        resultMap.forEach(
+                (map) -> map.keySet().forEach(
+                        (key) -> log.info("{} : {}\n", key, map.get(key))
+                )
+        );
+
+        log.info("Data Count >>> {}", index);
+    }
+
+
+    @Test
+    @DisplayName("만약 배차내역이 없는 날 조회 테스트")
+    public void noDispatchRecordsOnDayTest(){
+        Header header = mainPage.login(userInfo)
+                .toHeader();
+
+        AllocationPage allocationPage =
+                header.goToPageByMyPageMenu(allocationPageMenu)
+                        .setDateRange(DateRange.ofDay(2023, 11, 1))
+                        .clickSearchButton();
+
+        int index = 0;
+        List<Map<String, String>> dataMap = new ArrayList<>();
+
+        if(allocationPage.getDataTableCount() != 0){
+            dataMap.add(allocationPage.openAllocationDataPopupByOrderCodeIndex(0).extractAllocationData());
+        }
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> dataMap.get(index));
+    }
+
 
     @AfterEach
     public void afterPageTest() throws InterruptedException {

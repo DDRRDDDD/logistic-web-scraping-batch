@@ -1,6 +1,6 @@
 package com.project.selenium;
 
-import com.project.data.Menu;
+import com.project.metadata.Menu;
 import com.project.page.object.AllocationPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

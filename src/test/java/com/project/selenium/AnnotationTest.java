@@ -69,21 +69,23 @@ public class AnnotationTest {
        Assertions.assertEquals("singleton", mainPageScope);
        Assertions.assertEquals("prototype", popupPageScope);
     }
-}
 
+    @Page(url = "www.test.com")
+    static class APage{
+        @Override
+        public String toString(){
+            return "this is A Page";
+        }
+    }
 
-@Page(url = "www.test.com")
-class APage{
-    @Override
-    public String toString(){
-        return "this is A Page";
+    @Page(pageScope = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    static class BPage{
+        @Override
+        public String toString(){
+            return "this is B Page";
+        }
     }
 }
 
-@Page(pageScope = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-class BPage{
-    @Override
-    public String toString(){
-        return "this is B Page";
-    }
-}
+
+
