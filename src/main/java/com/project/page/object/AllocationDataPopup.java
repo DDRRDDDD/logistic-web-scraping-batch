@@ -33,13 +33,13 @@ public class AllocationDataPopup {
     }
 
     public Map<String, String> extractAllocationData(){
-        return perform(IntStream.range(0, dataKeys.size())
-                    .boxed()
-                    .collect(Collectors.toMap(
-                            index -> dataKeys.get(index).getText(),
-                            index -> dataValues.get(index).getText()
-                        )
-                    )
+        return perform(
+            IntStream.range(0, dataKeys.size())
+                .boxed()
+                .collect(Collectors.toMap(
+                    index -> dataKeys.get(index).getText(),
+                    index -> dataValues.get(index).getText()
+                ))
         );
     }
 
