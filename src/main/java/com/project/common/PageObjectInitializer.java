@@ -4,11 +4,14 @@ import com.project.page.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.aop.Advice;
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 
@@ -21,16 +24,42 @@ public class PageObjectInitializer implements BeanPostProcessor {
 
     private final ElementLocatorFactory ajaxElementLocatorFactory;
 
+    private final Environment environment;
+
+    private final WebDriver webDriver;
+
+
     @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         if(bean.getClass().isAnnotationPresent(Page.class)){
-            pageElementsInitialization(bean, beanName);
-            return getPageObjectProxy(bean);
+           navigateToHomePageIfRequired(bean);
         }
         return bean;
     }
 
-    private Object getPageObjectProxy(Object bean){
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        if(bean.getClass().isAnnotationPresent(Page.class)){
+            pageElementsInitialization(bean, beanName);
+            return generatePageObjectProxy(bean);
+        }
+        return bean;
+    }
+
+
+    private void navigateToHomePageIfRequired(Object bean){
+        Page pageAnnotation = bean.getClass().getAnnotation(Page.class);
+        String connectUrl = pageAnnotation.url();
+
+        if (pageAnnotation.homePage() && StringUtils.isNotEmpty(connectUrl)) {
+            webDriver.get(environment.resolvePlaceholders(connectUrl));
+            log.info("Navigating to home page : {}", webDriver.getCurrentUrl());
+        }
+    }
+
+
+    private Object generatePageObjectProxy(Object bean){
         ProxyFactory proxyFactory = new ProxyFactory(bean);
         proxyFactory.addAdvice(pageLoadAdvice);
         return proxyFactory.getProxy();
