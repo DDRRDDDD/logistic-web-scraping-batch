@@ -23,6 +23,7 @@ public class Header {
     }
 
 
+    // 마이페이지 메뉴를 선택하여 해당 페이지로 이동하는 메서드
     public <T> T goToPageByMyPageMenu(Menu<T> menu){
         WebElementCommander.with(myPageLinkAnchor)
                     .selectByOptionText(menu.getOption());
