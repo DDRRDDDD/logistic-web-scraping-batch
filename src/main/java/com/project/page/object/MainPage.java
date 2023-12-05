@@ -18,6 +18,7 @@ public class MainPage extends BasePage {
     @FindBy(id="btn_login")
     private WebElement loginButton;
 
+
     public MainPage login(UserInfo userInfo){
         loginIdTextInput.sendKeys(userInfo.getUserId());
         loginPwTextInput.sendKeys(userInfo.getUserPassword());
