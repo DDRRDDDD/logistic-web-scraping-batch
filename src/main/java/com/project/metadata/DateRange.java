@@ -26,4 +26,9 @@ public class DateRange {
         LocalDate dateOfMonth = LocalDate.of(year, month, day);
         return new DateRange(dateOfMonth.toString(), dateOfMonth.toString());
     }
+
+    public static DateRange ofToday(){
+        LocalDate currentDate = LocalDate.now();
+        return ofDay(currentDate.getYear(), currentDate.getMonthValue(), currentDate.getDayOfMonth());
+    }
 }
