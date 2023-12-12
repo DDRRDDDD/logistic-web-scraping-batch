@@ -1,8 +1,8 @@
 package com.project.scraper;
 
-import com.project.metadata.DateRange;
-import com.project.metadata.Menu;
-import com.project.metadata.UserInfo;
+import com.project.scraper.metadata.DateRange;
+import com.project.scraper.metadata.Menu;
+import com.project.scraper.metadata.UserInfo;
 import com.project.page.object.AllocationPage;
 import com.project.page.object.MainPage;
 import lombok.RequiredArgsConstructor;

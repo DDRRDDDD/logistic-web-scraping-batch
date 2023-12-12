@@ -1,4 +1,4 @@
-package com.project.metadata;
+package com.project.scraper.metadata;
 
 import com.project.page.object.AllocationPage;
 import lombok.AccessLevel;

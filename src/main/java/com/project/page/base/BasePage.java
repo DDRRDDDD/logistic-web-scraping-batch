@@ -1,4 +1,4 @@
-package com.project.page.object.base;
+package com.project.page.base;
 
 
 import com.project.common.BeanManager;

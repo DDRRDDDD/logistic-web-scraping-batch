@@ -2,9 +2,9 @@ package com.project.page.object;
 
 
 import com.project.common.BeanManager;
-import com.project.metadata.DateRange;
+import com.project.scraper.metadata.DateRange;
 import com.project.page.Page;
-import com.project.page.object.base.BasePage;
+import com.project.page.base.BasePage;
 import com.project.webdriver.WebElementCommander;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

@@ -1,6 +1,6 @@
 package com.project.selenium;
 
-import com.project.metadata.DateRange;
+import com.project.scraper.metadata.DateRange;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

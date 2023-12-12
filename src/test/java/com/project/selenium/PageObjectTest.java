@@ -1,12 +1,12 @@
 package com.project.selenium;
 
-import com.project.metadata.DateRange;
-import com.project.metadata.Menu;
-import com.project.metadata.UserInfo;
+import com.project.scraper.metadata.DateRange;
+import com.project.scraper.metadata.Menu;
+import com.project.scraper.metadata.UserInfo;
 import com.project.page.object.AllocationDataPopup;
 import com.project.page.object.AllocationPage;
 import com.project.page.object.MainPage;
-import com.project.page.object.base.Header;
+import com.project.page.base.Header;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;

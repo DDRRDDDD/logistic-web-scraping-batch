@@ -1,4 +1,4 @@
-package com.project.metadata;
+package com.project.scraper.metadata;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
