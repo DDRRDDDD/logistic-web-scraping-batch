@@ -1,6 +1,6 @@
 package com.project.page.object;
 
-import com.project.scraper.metadata.UserInfo;
+import com.project.metadata.UserInfo;
 import com.project.page.base.BasePage;
 import com.project.page.Page;
 import org.openqa.selenium.WebElement;

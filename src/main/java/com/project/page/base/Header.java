@@ -1,7 +1,7 @@
 package com.project.page.base;
 
 import com.project.common.BeanManager;
-import com.project.scraper.metadata.Menu;
+import com.project.metadata.Menu;
 import com.project.page.Page;
 import com.project.page.object.MainPage;
 import com.project.webdriver.WebElementCommander;

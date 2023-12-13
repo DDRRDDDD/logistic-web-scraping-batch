@@ -1,6 +1,6 @@
 package com.project.selenium;
 
-import com.project.scraper.metadata.UserInfo;
+import com.project.metadata.UserInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
