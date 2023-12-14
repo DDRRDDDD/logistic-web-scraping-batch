@@ -27,7 +27,6 @@ public class SeleniumConfig {
 
 
     @Bean
-    @Scope(SCOPE_SINGLETON)
     public ChromeOptions chromeOptions(){
         ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL)
@@ -39,14 +38,12 @@ public class SeleniumConfig {
     }
 
     @Bean(destroyMethod="quit")
-    @Scope(SCOPE_SINGLETON)
     public WebDriver chromeDriver(ChromeOptions chromeOptions) {
         WebDriverManager.chromedriver().setup();
         return new ChromeDriver(chromeOptions);
     }
 
     @Bean
-    @Scope(SCOPE_SINGLETON)
     public WebDriverWait webDriverWait(WebDriver webDriver){
         WebDriverWait driverWait = new WebDriverWait(webDriver, DRIVER_WAIT_DURATION);
         driverWait.ignoring(NoSuchElementException.class);
@@ -54,7 +51,6 @@ public class SeleniumConfig {
     }
 
     @Bean
-    @Scope(SCOPE_SINGLETON)
     public ElementLocatorFactory ajaxElementLocatorFactory(WebDriver webDriver){
         return new AjaxElementLocatorFactory(webDriver, WAIT_TIMEOUT_SECONDS);
     }
