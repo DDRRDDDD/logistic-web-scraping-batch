@@ -1,9 +1,7 @@
 package com.project.selenium;
 
 
-import com.project.common.BeanManager;
 import com.project.page.Page;
-import org.apache.hc.core5.function.Callback;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
