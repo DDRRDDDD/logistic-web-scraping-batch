@@ -12,11 +12,8 @@ import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
 import java.time.Duration;
-
-import static org.springframework.beans.factory.config.ConfigurableBeanFactory.*;
 
 @Slf4j
 @Configuration
@@ -39,7 +36,7 @@ public class SeleniumConfig {
 
     @Bean(destroyMethod="quit")
     public WebDriver chromeDriver(ChromeOptions chromeOptions) {
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver();
         return new ChromeDriver(chromeOptions);
     }
 
