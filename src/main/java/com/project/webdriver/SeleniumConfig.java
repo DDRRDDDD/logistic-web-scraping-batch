@@ -28,7 +28,7 @@ public class SeleniumConfig {
         ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL)
                 .addArguments("--incognito")
-//                .addArguments("headless")
+                .addArguments("headless")
                 .addArguments("--remote-allow-origins=*")
                 .addArguments("--blink-settings=imagesEnabled=false");
         return options;
@@ -36,7 +36,7 @@ public class SeleniumConfig {
 
     @Bean(destroyMethod="quit")
     public WebDriver chromeDriver(ChromeOptions chromeOptions) {
-        WebDriverManager.chromedriver();
+        WebDriverManager.chromedriver().setup();
         return new ChromeDriver(chromeOptions);
     }
 
