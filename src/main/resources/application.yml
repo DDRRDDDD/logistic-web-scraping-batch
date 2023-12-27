@@ -1,3 +1,19 @@
 spring:
+  batch:
+    jdbc:
+      initialize-schema: never
+
+  main:
+    web-application-type: none
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
   profiles:
     include: sensitive
+    active: local
+
+server:
+  port: 80
