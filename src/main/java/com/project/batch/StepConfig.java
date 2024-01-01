@@ -31,7 +31,7 @@ public class StepConfig {
 
     @JobScope
     @Bean(DAILY_ALLOCATION_STEP)
-    public Step dailyAllocationSStep(@Qualifier("dailyAllocationItemScraper") ItemReader<Map<String, String>> itemReader,
+    public Step dailyAllocationStep(@Qualifier("dailyAllocationItemScraper") ItemReader<Map<String, String>> itemReader,
                                      ItemWriter<Map<String, String>> itemWriter) {
         return new StepBuilder(DAILY_ALLOCATION_STEP, jobRepository)
                 .<Map<String, String>, Map<String, String>>chunk(chunkSize, transactionManager)
@@ -43,7 +43,7 @@ public class StepConfig {
 
     @JobScope
     @Bean(YEARLY_ALLOCATION_STEP)
-    public Step yearlyAllocationSStep(@Qualifier("yearlyAllocationItemScraper") ItemReader<Map<String, String>> itemReader,
+    public Step yearlyAllocationStep(@Qualifier("yearlyAllocationItemScraper") ItemReader<Map<String, String>> itemReader,
                                      ItemWriter<Map<String, String>> itemWriter) {
         return new StepBuilder(YEARLY_ALLOCATION_STEP, jobRepository)
                 .<Map<String, String>, Map<String, String>>chunk(chunkSize, transactionManager)
