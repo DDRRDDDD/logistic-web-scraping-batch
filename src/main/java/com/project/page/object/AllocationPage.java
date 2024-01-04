@@ -37,7 +37,9 @@ public class AllocationPage extends BasePage {
 
     // 주의 : 메서드 호출시 orderCodesByDataTable 의 값이 변경될 수 있습니다.
     public AllocationPage clickSearchButton() {
-        WebElementCommander.with(searchButton).waitForValue(countTimeText, "검색가능").click();
+        WebElementCommander.with(searchButton)
+                .waitForValue(countTimeText, "검색가능")
+                .click();
         return this;
     }
 
@@ -48,7 +50,7 @@ public class AllocationPage extends BasePage {
 
     public AllocationDataPopup openAllocationDataPopupByOrderCodeIndex(int orderCodeIndex){
         if(orderCodesByDataTable.size() <= orderCodeIndex){
-            return null;
+            return new AllocationDataPopup.NoopDataPopup();
         }
         orderCodesByDataTable.get(orderCodeIndex).click();
         return BeanManager.getPage(AllocationDataPopup.class);
