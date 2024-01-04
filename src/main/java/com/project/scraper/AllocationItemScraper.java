@@ -3,13 +3,16 @@ package com.project.scraper;
 import com.project.metadata.DateRange;
 import com.project.metadata.Menu;
 import com.project.metadata.UserInfo;
+import com.project.page.object.AllocationDataPopup;
 import com.project.page.object.AllocationPage;
 import com.project.page.object.MainPage;
+import io.micrometer.core.instrument.noop.NoopCounter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 
 @Slf4j
@@ -18,6 +21,7 @@ public class AllocationItemScraper implements ItemStreamReader<Map<String, Strin
 
     private static final int DEFAULT_INDEX = 0;
     private static final String CURRENT_INDEX = "current.index";
+
     private int index;
     private AllocationPage allocationPage;
 
@@ -57,7 +61,8 @@ public class AllocationItemScraper implements ItemStreamReader<Map<String, Strin
 
 
     private AllocationPage navigateToAllocationPage(){
-        return mainPage.login(userInfo)
+        return mainPage
+                .login(userInfo)
                 .toHeader()
                 .goToPageByMyPageMenu(allocationPageMenu)
                 .setDateRange(dateRange)
@@ -66,7 +71,8 @@ public class AllocationItemScraper implements ItemStreamReader<Map<String, Strin
 
 
     private Map<String, String> fetchAllocationData(){
-        return allocationPage.openAllocationDataPopupByOrderCodeIndex(index)
-                        .extractAllocationData();
+        return allocationPage
+                .openAllocationDataPopupByOrderCodeIndex(index)
+                .extractAllocationData();
     }
 }
