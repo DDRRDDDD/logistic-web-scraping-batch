@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -58,5 +57,11 @@ public class AllocationDataPopup {
         }
     }
 
+    static class NoopDataPopup extends AllocationDataPopup {
 
+        @Override
+        public Map<String, String> extractAllocationData() {
+            return null;
+        }
+    }
 }
