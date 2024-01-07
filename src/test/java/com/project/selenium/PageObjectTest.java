@@ -3,10 +3,10 @@ package com.project.selenium;
 import com.project.metadata.DateRange;
 import com.project.metadata.Menu;
 import com.project.metadata.UserInfo;
+import com.project.page.base.Header;
 import com.project.page.object.AllocationDataPopup;
 import com.project.page.object.AllocationPage;
 import com.project.page.object.MainPage;
-import com.project.page.base.Header;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
@@ -19,8 +19,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 
 @SpringBootTest
@@ -136,20 +138,21 @@ public class PageObjectTest {
 
         int index = 0;
         List<Map<String, String>> resultMap = new ArrayList<>();
-        AtomicBoolean isTrue = new AtomicBoolean(true);
 
-        while(isTrue.get()){
-            Optional.ofNullable(allocationPage.openAllocationDataPopupByOrderCodeIndex(index++))
-                    .ifPresentOrElse(
-                        (page) -> resultMap.add(page.extractAllocationData()),
-                        () -> isTrue.set(false)
-                    );
+        while(true){
+           Map<String, String> dataMap = allocationPage
+                   .openAllocationDataPopupByOrderCodeIndex(index)
+                   .extractAllocationData();
+
+           if(Objects.isNull(dataMap)){
+               break;
+           }
+           resultMap.add(dataMap);
+           index += 1;
         }
 
         resultMap.forEach(
-                (map) -> map.keySet().forEach(
-                        (key) -> log.info("{} : {}\n", key, map.get(key))
-                )
+                (map) -> map.keySet().forEach(key -> log.info("{} : {}\n", key, map.get(key)))
         );
 
         log.info("Data Count >>> {}", index);
