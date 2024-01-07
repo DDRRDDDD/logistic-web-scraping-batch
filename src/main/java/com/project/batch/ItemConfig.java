@@ -5,7 +5,7 @@ import com.project.metadata.DateRange;
 import com.project.scraper.AllocationItemScraperBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ItemConfig {
 
+
     private final AllocationItemScraperBuilder allocationItemScraperBuilder;
 
     private final DataSource hikariDataSource;
@@ -25,7 +26,7 @@ public class ItemConfig {
 
     @Bean
     @StepScope
-    public ItemReader<Map<String, String>> dailyAllocationItemScraper(){
+    public ItemStreamReader<Map<String, String>> dailyAllocationItemScraper() {
         return allocationItemScraperBuilder
                 .setDateRange(DateRange.ofToday())
                 .build();
@@ -34,19 +35,19 @@ public class ItemConfig {
 
     @Bean
     @StepScope
-    public ItemReader<Map<String, String>> yearlyAllocationItemScraper(){
+    public ItemStreamReader<Map<String, String>> yearlyAllocationItemScraper() {
         return allocationItemScraperBuilder
-                .setDateRange(DateRange.ofThisYear())
+                .setDateRange(DateRange.ofYear(2023))
                 .build();
     }
 
 
     @Bean
     @StepScope
-    public ItemWriter<Map<String, String>> allocationJdbcItemWriter(){
+    public ItemWriter<Map<String, String>> allocationJdbcItemWriter() {
         return new JdbcBatchItemWriterBuilder<Map<String, String>>()
                 .dataSource(hikariDataSource)
-                .beanMapped()
+                .columnMapped()
                 .sql(SqlMappedContext.INSERT_ALLOCATION)
                 .build();
     }

@@ -3,17 +3,15 @@ package com.project.scraper;
 import com.project.metadata.DateRange;
 import com.project.metadata.Menu;
 import com.project.metadata.UserInfo;
-import com.project.page.object.AllocationDataPopup;
 import com.project.page.object.AllocationPage;
 import com.project.page.object.MainPage;
-import io.micrometer.core.instrument.noop.NoopCounter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.item.*;
+import org.springframework.batch.item.ExecutionContext;
+import org.springframework.batch.item.ItemStreamException;
+import org.springframework.batch.item.ItemStreamReader;
 
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 
 
 @Slf4j

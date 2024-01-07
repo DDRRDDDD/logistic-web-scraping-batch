@@ -47,4 +47,13 @@ public class DataSourceTest {
         Assertions.assertEquals("H2 JDBC Driver", driverName);
         Assertions.assertEquals("SA", userName);
     }
+
+    @Test
+    @DisplayName("HikariCP network timeout 테스트")
+    public void test() throws SQLException{
+        int timeout = dataSource.getConnection().getNetworkTimeout();
+
+        log.info("HikariCP timeout seconds => {}", timeout);
+
+    }
 }
