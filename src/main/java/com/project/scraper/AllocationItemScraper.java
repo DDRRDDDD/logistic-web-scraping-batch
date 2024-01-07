@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.*;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -40,13 +41,16 @@ public class AllocationItemScraper implements ItemStreamReader<Map<String, Strin
     public void open(ExecutionContext executionContext) throws ItemStreamException {
         this.allocationPage = navigateToAllocationPage();
         this.index = executionContext.getInt(CURRENT_INDEX, DEFAULT_INDEX);
+
         log.info("Loading the allocation page. Current index : {}", index);
+        log.info("Allocation Data Table Size >>> {}", allocationPage.getDataTableCount());
     }
 
 
     @Override
     public void update(ExecutionContext executionContext) throws ItemStreamException {
         executionContext.put(CURRENT_INDEX, index);
+
         log.info("Updating ExecutionContext. Current index: {}", index);
     }
 
@@ -54,8 +58,9 @@ public class AllocationItemScraper implements ItemStreamReader<Map<String, Strin
     @Override
     public Map<String, String> read() throws Exception {
         Map<String, String> dataResult = fetchAllocationData();
-        index += 1;
         log.info("Reading allocation data. Current index: {}", index);
+
+        index += 1;
         return dataResult;
     }
 
