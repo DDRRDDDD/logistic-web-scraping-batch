@@ -48,6 +48,11 @@ public class DateRange {
         return new DateRange(dateOfMonth.toString(), dateOfMonth.toString());
     }
 
+    public static DateRange ofYesterday(LocalDate date) {
+        date = date.minusDays(1);
+        return ofDay(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
+    }
+
 
     public static DateRange ofToday(){
         LocalDate currentDate = LocalDate.now();
