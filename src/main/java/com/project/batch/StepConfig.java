@@ -29,14 +29,12 @@ public class StepConfig {
 
     private final PlatformTransactionManager transactionManager;
 
+
     private final ChunkListener chunkListener;
 
-    /**
-     * 기본 chunkSize는 10
-     */
 
-    @Value("#{jobParameters[chunkSize]}")
-    private final int chunkSize = 10;
+    @Value("${chunkSize:10}")
+    private int chunkSize;
 
 
     @JobScope
