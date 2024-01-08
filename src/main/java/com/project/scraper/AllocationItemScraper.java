@@ -34,7 +34,6 @@ public class AllocationItemScraper implements ItemStreamReader<Map<String, Strin
     private final DateRange dateRange;
 
 
-
     @Override
     public void open(ExecutionContext executionContext) throws ItemStreamException {
         this.allocationPage = navigateToAllocationPage();
@@ -48,7 +47,6 @@ public class AllocationItemScraper implements ItemStreamReader<Map<String, Strin
     @Override
     public void update(ExecutionContext executionContext) throws ItemStreamException {
         executionContext.put(CURRENT_INDEX, index);
-
         log.info("Updating ExecutionContext. Current index: {}", index);
     }
 
