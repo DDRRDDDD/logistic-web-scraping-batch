@@ -1,6 +1,6 @@
-package com.project.batch;
+package com.project.job;
 
-import com.project.batch.mapped.SqlMappedContext;
+import com.project.job.mapped.SqlMappedContext;
 import com.project.metadata.DateRange;
 import com.project.scraper.AllocationItemScraperBuilder;
 import lombok.RequiredArgsConstructor;

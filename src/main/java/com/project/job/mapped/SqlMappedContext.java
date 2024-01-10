@@ -1,25 +1,10 @@
-package com.project.batch.mapped;
+package com.project.job.mapped;
 
 public interface SqlMappedContext {
 
     String INSERT_ALLOCATION =
                      """
-                     INSERT INTO allocation
-                         (
-                             order_code,
-                             vehicle,
-                             tonnage,
-                             loading_area,
-                             unloading_area,
-                             shipping_cost,
-                             commission,
-                             payment_type,
-                             shipper_name,
-                             shipper_phone,
-                             information,
-                             registration_date
-                         )
-                         VALUES
+                     INSERT IGNORE INTO allocation VALUES
                          (
                              :화물번호,
                              :차량종류,
@@ -35,5 +20,6 @@ public interface SqlMappedContext {
                              :등록일자
                          )
                      """;
+
 
 }
