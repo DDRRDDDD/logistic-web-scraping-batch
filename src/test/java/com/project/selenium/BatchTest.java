@@ -3,20 +3,20 @@ package com.project.selenium;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.batch.core.BatchStatus;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.*;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.project.batch.JobConfig.DAILY_ALLOCATION_JOB;
-import static com.project.batch.JobConfig.YEARLY_ALLOCATION_JOB;
+import static com.project.job.JobConfig.DAILY_ALLOCATION_JOB;
+import static com.project.job.JobConfig.YEARLY_ALLOCATION_JOB;
 
 @SpringBootTest
 @SpringBatchTest
+@EnableBatchProcessing
 public class BatchTest {
 
     @Autowired
@@ -30,7 +30,6 @@ public class BatchTest {
     @Qualifier(YEARLY_ALLOCATION_JOB)
     private Job yearlyAllocationJob;
 
-
     @Test
     @DisplayName("일일 배차내역 조회 스크래퍼 테스트")
     public void dailyScraperTest() throws Exception {
@@ -43,8 +42,12 @@ public class BatchTest {
     @Test
     @DisplayName("연간 배차내역 조회 스크래퍼 테스트")
     public void yearlyScraperTest() throws Exception {
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addString("year", "2023")
+                .toJobParameters();
+
         jobLauncherTestUtils.setJob(this.yearlyAllocationJob);
-        JobExecution jobExecution = jobLauncherTestUtils.launchJob();
+        JobExecution jobExecution = jobLauncherTestUtils.launchJob(jobParameters);
 
         Assertions.assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());
     }
