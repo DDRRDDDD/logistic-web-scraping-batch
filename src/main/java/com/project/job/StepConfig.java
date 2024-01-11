@@ -29,7 +29,6 @@ public class StepConfig {
 
     private final PlatformTransactionManager transactionManager;
 
-
     private final ChunkListener chunkListener;
 
 
