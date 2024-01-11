@@ -1,4 +1,4 @@
-package com.project.job.mapped;
+package com.project.datasource.sql;
 
 public interface SqlMappedContext {
 
