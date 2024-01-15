@@ -90,7 +90,7 @@ public class PageObjectTest {
                 .toHeader();
 
         header.goToPageByMyPageMenu(allocationPageMenu)
-                .setDateRange(DateRange.ofMonth(2023, 11))
+                .setDateRange(new DateRange("2023-11-01", "2023-11-30"))
                 .clickSearchButton();
     }
 
@@ -102,7 +102,7 @@ public class PageObjectTest {
 
         AllocationDataPopup dataPopup =
                 header.goToPageByMyPageMenu(allocationPageMenu)
-                .setDateRange(DateRange.ofMonth(2023, 11))
+                .setDateRange(new DateRange("2023-11-01", "2023-11-30"))
                 .clickSearchButton()
                 .openAllocationDataPopupByOrderCodeIndex(0);
     }
@@ -115,7 +115,7 @@ public class PageObjectTest {
 
         AllocationDataPopup dataPopup =
                 header.goToPageByMyPageMenu(allocationPageMenu)
-                        .setDateRange(DateRange.ofMonth(2023, 11))
+                        .setDateRange(new DateRange("2023-11-01", "2023-11-30"))
                         .clickSearchButton()
                         .openAllocationDataPopupByOrderCodeIndex(0);
 
@@ -132,7 +132,7 @@ public class PageObjectTest {
 
         AllocationPage allocationPage = header.goToPageByMyPageMenu(allocationPageMenu);
 
-        allocationPage.setDateRange(DateRange.ofMonth(2023, 11))
+        allocationPage.setDateRange(new DateRange("2023-11-01", "2023-11-30"))
                     .clickSearchButton();
 
 
@@ -167,7 +167,7 @@ public class PageObjectTest {
 
         AllocationPage allocationPage =
                 header.goToPageByMyPageMenu(allocationPageMenu)
-                        .setDateRange(DateRange.ofDay(2023, 11, 1))
+                        .setDateRange(new DateRange("2023-11-01", "2023-11-30"))
                         .clickSearchButton();
 
         int index = 0;
