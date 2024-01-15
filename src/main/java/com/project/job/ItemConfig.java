@@ -8,12 +8,11 @@ import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
-import java.time.LocalDate;
 import java.util.Map;
 
 @Configuration
@@ -28,19 +27,15 @@ public class ItemConfig {
 
     @Bean
     @StepScope
-    public ItemStreamReader<Map<String, String>> dailyAllocationItemScraper() {
-        return allocationItemScraperBuilder
-                .setDateRange(DateRange.ofYesterday(LocalDate.now()))
-                .build();
+    public ItemStreamReader<Map<String, String>> dailyAllocationItemScraper(@Qualifier("dailyDateRange") DateRange dateRange) {
+        return allocationItemScraperBuilder.setDateRange(dateRange).build();
     }
 
 
     @Bean
     @StepScope
-    public ItemStreamReader<Map<String, String>> yearlyAllocationItemScraper(@Value("#{jobParameters[year]}") int registrationYear) {
-        return allocationItemScraperBuilder
-                .setDateRange(DateRange.ofYear(registrationYear))
-                .build();
+    public ItemStreamReader<Map<String, String>> yearlyAllocationItemScraper(@Qualifier("yearlyDateRange") DateRange dateRange) {
+        return allocationItemScraperBuilder.setDateRange(dateRange).build();
     }
 
 
@@ -49,8 +44,8 @@ public class ItemConfig {
     public ItemWriter<Map<String, String>> allocationJdbcItemWriter() {
         return new JdbcBatchItemWriterBuilder<Map<String, String>>()
                 .dataSource(hikariDataSource)
-                .columnMapped()
                 .sql(SqlMappedContext.INSERT_ALLOCATION)
+                .columnMapped()
                 .build();
     }
 }
