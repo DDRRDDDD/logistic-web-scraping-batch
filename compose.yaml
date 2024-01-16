@@ -1,10 +1,10 @@
 services:
-  mysql:
-    image: 'mysql:latest'
+  batch-status:
+    image: 'mariadb:latest'
     environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+      - 'MARIADB_DATABASE=test'
+      - 'MARIADB_ROOT_PASSWORD=1234'
+      - 'MARIADB_USER=user'
+      - 'MARIADB_PASSWORD=1234'
     ports:
       - '3306'
