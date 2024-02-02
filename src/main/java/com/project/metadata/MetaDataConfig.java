@@ -24,7 +24,7 @@ public class MetaDataConfig {
 
     @Bean
     @JobScope
-    public DateRange yearlyDateRange(@Value("#{jobParameters[currentDate]}") String currentDate){
-        return DateRange.ofYear(currentDate);
+    public DateRange monthlyDateRange(@Value("#{jobParameters[currentDate]}") String currentDate){
+        return DateRange.ofMonth(currentDate);
     }
 }

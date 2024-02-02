@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.boot.autoconfigure.service.connection.ConnectionDetails;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,7 +29,8 @@ public class SeleniumConfig {
         ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL)
                 .addArguments("--incognito")
-                .addArguments("headless")
+//                .addArguments("headless")
+//                .addArguments("--kiosk")
                 .addArguments("--remote-allow-origins=*")
                 .addArguments("--blink-settings=imagesEnabled=false");
         return options;

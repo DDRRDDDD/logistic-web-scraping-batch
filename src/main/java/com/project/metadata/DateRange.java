@@ -24,6 +24,15 @@ public class DateRange {
         return new DateRange(date.toString(), date.toString());
     }
 
+    public static DateRange ofMonth(@NonNull String dataParameter){
+        LocalDate date = LocalDate.parse(dataParameter, ISO_LOCAL_DATE);
+
+        String startDateOfMonth = date.withDayOfMonth(ONE_DAY).toString();
+        String endDateOfMonth = date.withDayOfMonth(date.lengthOfMonth()).toString();
+
+        return new DateRange(startDateOfMonth, endDateOfMonth);
+    }
+
     public static DateRange ofYear(@NonNull String dateParameter){
         LocalDate date = LocalDate.parse(dateParameter, ISO_LOCAL_DATE);
 

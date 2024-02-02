@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static com.project.job.JobConfig.DAILY_ALLOCATION_JOB;
-import static com.project.job.JobConfig.YEARLY_ALLOCATION_JOB;
+import static com.project.job.JobConfig.MONTHLY_ALLOCATION_JOB;
 
 @SpringBootTest
 @SpringBatchTest
@@ -28,8 +28,8 @@ public class BatchTest {
     private Job dailyAllocationJob;
 
     @Autowired
-    @Qualifier(YEARLY_ALLOCATION_JOB)
-    private Job yearlyAllocationJob;
+    @Qualifier(MONTHLY_ALLOCATION_JOB)
+    private Job monthlyAllocationJob;
 
 
     private JobParameters jobParameters;
@@ -51,9 +51,9 @@ public class BatchTest {
     }
 
     @Test
-    @DisplayName("연간 배차내역 조회 스크래퍼 테스트")
-    public void yearlyScraperTest() throws Exception {
-        jobLauncherTestUtils.setJob(this.yearlyAllocationJob);
+    @DisplayName("월간 배차내역 조회 스크래퍼 테스트")
+    public void monthlyScraperTest() throws Exception {
+        jobLauncherTestUtils.setJob(this.monthlyAllocationJob);
         JobExecution jobExecution = jobLauncherTestUtils.launchJob(jobParameters);
 
         Assertions.assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());

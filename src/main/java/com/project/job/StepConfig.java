@@ -23,7 +23,7 @@ import java.util.Map;
 public class StepConfig {
 
     public static final String DAILY_ALLOCATION_STEP = "DAILY_ALLOCATION_STEP";
-    public static final String YEARLY_ALLOCATION_STEP = "YEARLY_ALLOCATION_STEP";
+    public static final String MONTHLY_ALLOCATION_STEP = "MONTHLY_ALLOCATION_STEP";
 
     private final JobRepository jobRepository;
 
@@ -50,10 +50,10 @@ public class StepConfig {
 
 
     @JobScope
-    @Bean(YEARLY_ALLOCATION_STEP)
-    public Step yearlyAllocationStep(@Qualifier("yearlyAllocationItemScraper") ItemStreamReader<Map<String, String>> itemReader,
+    @Bean(MONTHLY_ALLOCATION_STEP)
+    public Step yearlyAllocationStep(@Qualifier("monthlyAllocationItemScraper") ItemStreamReader<Map<String, String>> itemReader,
                                      ItemWriter<Map<String, String>> itemWriter) {
-        return new StepBuilder(YEARLY_ALLOCATION_STEP, jobRepository)
+        return new StepBuilder(MONTHLY_ALLOCATION_STEP, jobRepository)
                 .<Map<String, String>, Map<String, String>>chunk(chunkSize, transactionManager)
                 .listener(chunkListener)
                 .reader(itemReader)

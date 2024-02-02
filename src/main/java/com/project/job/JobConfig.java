@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static com.project.job.StepConfig.DAILY_ALLOCATION_STEP;
-import static com.project.job.StepConfig.YEARLY_ALLOCATION_STEP;
+import static com.project.job.StepConfig.*;
 
 
 @Configuration
@@ -19,7 +18,7 @@ import static com.project.job.StepConfig.YEARLY_ALLOCATION_STEP;
 public class JobConfig {
 
     public static final String DAILY_ALLOCATION_JOB = "DAILY_ALLOCATION_JOB";
-    public static final String YEARLY_ALLOCATION_JOB = "YEARLY_ALLOCATION_JOB";
+    public static final String MONTHLY_ALLOCATION_JOB = "MONTHLY_ALLOCATION_JOB";
 
     private final JobRepository jobRepository;
 
@@ -34,11 +33,11 @@ public class JobConfig {
 
 
 
-    @Bean(YEARLY_ALLOCATION_JOB)
-    public Job yearlyAllocationJob(@Qualifier(YEARLY_ALLOCATION_STEP) Step yearlyStep){
-        return new JobBuilder(YEARLY_ALLOCATION_JOB, jobRepository)
+    @Bean(MONTHLY_ALLOCATION_JOB)
+    public Job monthlyAllocationJob(@Qualifier(MONTHLY_ALLOCATION_STEP) Step monthlyStep){
+        return new JobBuilder(MONTHLY_ALLOCATION_JOB, jobRepository)
                 .incrementer(new RunIdIncrementer())
-                .start(yearlyStep)
+                .start(monthlyStep)
                 .build();
     }
 }

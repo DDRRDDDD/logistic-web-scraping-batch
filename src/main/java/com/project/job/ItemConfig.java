@@ -34,7 +34,7 @@ public class ItemConfig {
 
     @Bean
     @StepScope
-    public ItemStreamReader<Map<String, String>> yearlyAllocationItemScraper(@Qualifier("yearlyDateRange") DateRange dateRange) {
+    public ItemStreamReader<Map<String, String>> monthlyAllocationItemScraper(@Qualifier("monthlyDateRange") DateRange dateRange) {
         return allocationItemScraperBuilder.setDateRange(dateRange).build();
     }
 
