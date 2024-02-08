@@ -17,14 +17,14 @@ public class MetaDataConfig {
 
     @Bean
     @JobScope
-    public DateRange dailyDateRange(@Value("#{jobParameters[currentDate]}") String currentDate){
+    public DateRange dailyDateRange(@Value("#{jobParameters[requestDate]}") String currentDate){
         return DateRange.ofYesterday(currentDate);
     }
 
 
     @Bean
     @JobScope
-    public DateRange monthlyDateRange(@Value("#{jobParameters[currentDate]}") String currentDate){
+    public DateRange monthlyDateRange(@Value("#{jobParameters[requestDate]}") String currentDate){
         return DateRange.ofMonth(currentDate);
     }
 }
