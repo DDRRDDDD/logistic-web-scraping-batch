@@ -15,6 +15,9 @@ import javax.annotation.Nullable;
 @Component
 public class PageLoadAdvice implements MethodInterceptor {
 
+    private static final String COMPLETE_READY_STATE = "complete";
+
+
     @Nullable @Override
     public Object invoke(@Nonnull MethodInvocation invocation) throws Throwable {
         WebDriverUtils.waitUntil(expectedCondition());
@@ -44,7 +47,7 @@ public class PageLoadAdvice implements MethodInterceptor {
         return WebDriverUtils.getJavascriptExecutor()
                 .executeScript("return document.readyState")
                 .toString()
-                .equals("complete");
+                .equals(COMPLETE_READY_STATE);
     }
 
 }
