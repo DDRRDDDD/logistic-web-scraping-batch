@@ -27,10 +27,9 @@ public class SeleniumConfig {
     @Bean
     public ChromeOptions chromeOptions(){
         ChromeOptions options = new ChromeOptions();
-        options.setPageLoadStrategy(PageLoadStrategy.NORMAL)
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER)
                 .addArguments("--incognito")
 //                .addArguments("headless")
-//                .addArguments("--kiosk")
                 .addArguments("--remote-allow-origins=*")
                 .addArguments("--blink-settings=imagesEnabled=false");
         return options;
