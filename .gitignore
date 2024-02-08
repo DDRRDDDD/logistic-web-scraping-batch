@@ -37,4 +37,6 @@ out/
 .vscode/
 
 application-sensitive.yml
+application-dev.yml
+application-prod.yml
 /database/
