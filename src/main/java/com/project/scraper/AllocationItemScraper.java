@@ -5,6 +5,7 @@ import com.project.metadata.Menu;
 import com.project.metadata.UserInfo;
 import com.project.page.object.AllocationPage;
 import com.project.page.object.MainPage;
+import com.project.webdriver.WebDriverUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ExecutionContext;
@@ -60,6 +61,10 @@ public class AllocationItemScraper implements ItemStreamReader<Map<String, Strin
         return dataResult;
     }
 
+    @Override
+    public void close() throws ItemStreamException {
+        WebDriverUtils.closeWebDriver();
+    }
 
     private AllocationPage navigateToAllocationPage(){
         return mainPage

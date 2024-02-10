@@ -58,6 +58,11 @@ public class WebDriverUtils {
         }
     }
 
+    public static void closeWebDriver(){
+        WebDriverProvider.getWebDriver().close();
+        WebDriverProvider.getWebDriver().quit();
+    }
+
 
     @Component
     private static class WebDriverProvider  {
