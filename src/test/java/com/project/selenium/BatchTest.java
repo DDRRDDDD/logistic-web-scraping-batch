@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.*;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import static com.project.job.JobConfig.MONTHLY_ALLOCATION_JOB;
 
 @SpringBootTest
 @SpringBatchTest
-@EnableBatchProcessing
 public class BatchTest {
 
     @Autowired
@@ -37,7 +35,7 @@ public class BatchTest {
     @BeforeEach
     public void beforeBatchTest(){
         jobParameters = new JobParametersBuilder()
-                .addString("requestDate", "2023-10-30")
+                .addString("requestDate", "2023-10-20")
                 .toJobParameters();
     }
 
