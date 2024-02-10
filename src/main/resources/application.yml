@@ -5,7 +5,3 @@ spring:
       prod: prod,sensitive
 
 
-logging:
-  level:
-    jdbc.core.JdbcTemplate: DEBUG
-    batch.item.database: DEBUG
