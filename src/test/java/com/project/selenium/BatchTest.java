@@ -37,7 +37,7 @@ public class BatchTest {
     @BeforeEach
     public void beforeBatchTest(){
         jobParameters = new JobParametersBuilder()
-                .addString("currentDate", "2023-10-30")
+                .addString("requestDate", "2023-10-30")
                 .toJobParameters();
     }
 
