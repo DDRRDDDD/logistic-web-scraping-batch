@@ -181,6 +181,14 @@ public class PageObjectTest {
     }
 
 
+    @Test
+    @DisplayName("배송현황 이미지 링크를 클릭하면 배차내역조회 페이지로 이동한다")
+    public void shouldNavigateToAllocationPageWhenLinkClicked(){
+        AllocationPage page = mainPage.login(userInfo).goToAllocationPage();
+
+        Assertions.assertNotNull(page);
+    }
+
     @AfterEach
     public void afterPageTest() throws InterruptedException {
         Thread.sleep(5000);
