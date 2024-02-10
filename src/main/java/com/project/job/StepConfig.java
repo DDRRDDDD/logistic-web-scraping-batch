@@ -1,6 +1,5 @@
 package com.project.job;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ChunkListener;
 import org.springframework.batch.core.Step;
@@ -19,7 +18,6 @@ import java.util.Map;
 
 @Slf4j
 @Configuration
-@RequiredArgsConstructor
 public class StepConfig {
 
     public static final String DAILY_ALLOCATION_STEP = "DAILY_ALLOCATION_STEP";
@@ -27,7 +25,7 @@ public class StepConfig {
 
     private final JobRepository jobRepository;
 
-    private final PlatformTransactionManager transactionManager;
+    private final PlatformTransactionManager allocationTransactionManager;
 
     private final ChunkListener chunkListener;
 
@@ -36,12 +34,24 @@ public class StepConfig {
     private int chunkSize;
 
 
+    public StepConfig(JobRepository jobRepository, ChunkListener chunkListener,
+                      @Qualifier("allocationTransactionManager") PlatformTransactionManager transactionManager)
+    {
+        this.jobRepository = jobRepository;
+        this.chunkListener = chunkListener;
+        this.allocationTransactionManager = transactionManager;
+    }
+
+
+
+
+
     @JobScope
     @Bean(DAILY_ALLOCATION_STEP)
     public Step dailyAllocationStep(@Qualifier("dailyAllocationItemScraper") ItemStreamReader<Map<String, String>> itemReader,
                                     ItemWriter<Map<String, String>> itemWriter) {
         return new StepBuilder(DAILY_ALLOCATION_STEP, jobRepository)
-                .<Map<String, String>, Map<String, String>>chunk(chunkSize, transactionManager)
+                .<Map<String, String>, Map<String, String>>chunk(chunkSize, allocationTransactionManager)
                 .listener(chunkListener)
                 .reader(itemReader)
                 .writer(itemWriter)
@@ -54,7 +64,7 @@ public class StepConfig {
     public Step yearlyAllocationStep(@Qualifier("monthlyAllocationItemScraper") ItemStreamReader<Map<String, String>> itemReader,
                                      ItemWriter<Map<String, String>> itemWriter) {
         return new StepBuilder(MONTHLY_ALLOCATION_STEP, jobRepository)
-                .<Map<String, String>, Map<String, String>>chunk(chunkSize, transactionManager)
+                .<Map<String, String>, Map<String, String>>chunk(chunkSize, allocationTransactionManager)
                 .listener(chunkListener)
                 .reader(itemReader)
                 .writer(itemWriter)

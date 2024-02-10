@@ -3,7 +3,6 @@ package com.project.job;
 import com.project.datasource.sql.SqlMappedContext;
 import com.project.metadata.DateRange;
 import com.project.scraper.AllocationItemScraperBuilder;
-import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemStreamReader;
 import org.springframework.batch.item.ItemWriter;
@@ -16,13 +15,19 @@ import javax.sql.DataSource;
 import java.util.Map;
 
 @Configuration
-@RequiredArgsConstructor
 public class ItemConfig {
 
 
     private final AllocationItemScraperBuilder allocationItemScraperBuilder;
 
-    private final DataSource hikariDataSource;
+    private final DataSource allocationDataSource;
+
+    public ItemConfig(AllocationItemScraperBuilder allocationItemScraperBuilder,
+                      @Qualifier("allocationDataSource") DataSource allocationDataSource)
+    {
+        this.allocationItemScraperBuilder = allocationItemScraperBuilder;
+        this.allocationDataSource = allocationDataSource;
+    }
 
 
     @Bean
@@ -43,7 +48,7 @@ public class ItemConfig {
     @StepScope
     public ItemWriter<Map<String, String>> allocationJdbcItemWriter() {
         return new JdbcBatchItemWriterBuilder<Map<String, String>>()
-                .dataSource(hikariDataSource)
+                .dataSource(allocationDataSource)
                 .sql(SqlMappedContext.INSERT_ALLOCATION)
                 .columnMapped()
                 .build();
