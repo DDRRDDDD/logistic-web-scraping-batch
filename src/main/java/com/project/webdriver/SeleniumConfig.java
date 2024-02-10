@@ -19,7 +19,7 @@ import java.time.Duration;
 @Configuration
 public class SeleniumConfig {
 
-    private static final long WAIT_TIMEOUT_SECONDS = 6500; // 대기 시간 6.5초
+    private static final int WAIT_TIMEOUT_SECONDS = 7; // 대기 시간 6.5초
     public static final Duration DRIVER_WAIT_DURATION = Duration.ofSeconds(WAIT_TIMEOUT_SECONDS);
 
 
