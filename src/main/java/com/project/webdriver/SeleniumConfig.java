@@ -10,7 +10,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.boot.autoconfigure.service.connection.ConnectionDetails;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,7 +19,7 @@ import java.time.Duration;
 @Configuration
 public class SeleniumConfig {
 
-    private static final int WAIT_TIMEOUT_SECONDS = 10;
+    private static final long WAIT_TIMEOUT_SECONDS = 6500; // 대기 시간 6.5초
     public static final Duration DRIVER_WAIT_DURATION = Duration.ofSeconds(WAIT_TIMEOUT_SECONDS);
 
 
