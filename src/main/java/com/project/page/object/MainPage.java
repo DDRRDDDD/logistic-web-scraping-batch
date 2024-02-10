@@ -1,5 +1,6 @@
 package com.project.page.object;
 
+import com.project.common.BeanManager;
 import com.project.metadata.UserInfo;
 import com.project.page.Page;
 import com.project.page.base.BasePage;
@@ -19,6 +20,10 @@ public class MainPage extends BasePage {
     private WebElement loginButton;
 
 
+    @FindBy(css="a[href=\"javascript:goAllocList();\"]")
+    private WebElement allocationPageButton;
+
+
     public MainPage login(UserInfo userInfo){
         loginIdTextInput.sendKeys(userInfo.getUserId());
         loginPwTextInput.sendKeys(userInfo.getUserPassword());
@@ -26,5 +31,9 @@ public class MainPage extends BasePage {
         return this;
     }
 
+    public AllocationPage goToAllocationPage(){
+        allocationPageButton.click();
+        return BeanManager.getPage(AllocationPage.class);
+    }
 
 }
