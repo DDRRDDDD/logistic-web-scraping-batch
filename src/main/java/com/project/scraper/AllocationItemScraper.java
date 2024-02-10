@@ -64,8 +64,7 @@ public class AllocationItemScraper implements ItemStreamReader<Map<String, Strin
     private AllocationPage navigateToAllocationPage(){
         return mainPage
                 .login(userInfo)
-                .toHeader()
-                .goToPageByMyPageMenu(allocationPageMenu)
+                .goToAllocationPage()
                 .setDateRange(dateRange)
                 .clickSearchButton();
     }
