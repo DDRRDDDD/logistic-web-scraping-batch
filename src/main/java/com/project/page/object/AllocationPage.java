@@ -35,7 +35,10 @@ public class AllocationPage extends BasePage {
     }
 
 
-    // 주의 : 메서드 호출시 orderCodesByDataTable 의 값이 변경될 수 있습니다.
+    /**
+     * 메서드 호출시 orderCodesByDataTable 의 값이 변경될 수 있습니다.
+     */
+
     public AllocationPage clickSearchButton() {
         WebElementCommander.with(searchButton)
                 .waitForValue(countTimeText, "검색가능")
