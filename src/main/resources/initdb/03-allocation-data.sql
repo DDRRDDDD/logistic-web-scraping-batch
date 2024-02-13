@@ -2,7 +2,7 @@ USE `allocation-data`;
 
 DROP TABLE IF EXISTS ALLOCATION;
 
-CREATE TABLE ALLOCATION
+CREATE TABLE IF NOT EXISTS ALLOCATION
 (
     order_code        varchar(10) primary key,
     vehicle           varchar(10),
