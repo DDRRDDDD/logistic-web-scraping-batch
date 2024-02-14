@@ -57,7 +57,7 @@ public class AllocationDataPopup {
         }
     }
 
-    static class NoopDataPopup extends AllocationDataPopup {
+    static class VoidDataPopup extends AllocationDataPopup {
 
         @Override
         public Map<String, String> extractAllocationData() {

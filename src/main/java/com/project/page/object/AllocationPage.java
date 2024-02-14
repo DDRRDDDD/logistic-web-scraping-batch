@@ -53,7 +53,7 @@ public class AllocationPage extends BasePage {
 
     public AllocationDataPopup openAllocationDataPopupByOrderCodeIndex(int orderCodeIndex){
         if(orderCodesByDataTable.size() <= orderCodeIndex){
-            return new AllocationDataPopup.NoopDataPopup();
+            return new AllocationDataPopup.VoidDataPopup();
         }
         orderCodesByDataTable.get(orderCodeIndex).click();
         return BeanManager.getPage(AllocationDataPopup.class);
