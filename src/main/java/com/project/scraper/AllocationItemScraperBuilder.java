@@ -21,8 +21,6 @@ public class AllocationItemScraperBuilder {
 
     private final UserInfo userInfo;
 
-    private final Menu<AllocationPage> allocationPageMenu;
-
     private DateRange dateRange;
 
     public AllocationItemScraperBuilder setDateRange(DateRange dateRange){
@@ -31,6 +29,6 @@ public class AllocationItemScraperBuilder {
     }
 
     public AllocationItemScraper build(){
-        return new AllocationItemScraper(mainPage, userInfo, allocationPageMenu, dateRange);
+        return new AllocationItemScraper(mainPage, userInfo, dateRange);
     }
 }

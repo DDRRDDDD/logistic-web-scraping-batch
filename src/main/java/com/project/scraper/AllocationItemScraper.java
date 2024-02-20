@@ -30,8 +30,6 @@ public class AllocationItemScraper implements ItemStreamReader<Map<String, Strin
 
     private final UserInfo userInfo;
 
-    private final Menu<AllocationPage> allocationPageMenu;
-
     private final DateRange dateRange;
 
 
@@ -59,11 +57,6 @@ public class AllocationItemScraper implements ItemStreamReader<Map<String, Strin
 
         index += 1;
         return dataResult;
-    }
-
-    @Override
-    public void close() throws ItemStreamException {
-        WebDriverUtils.closeWebDriver();
     }
 
     private AllocationPage navigateToAllocationPage(){
