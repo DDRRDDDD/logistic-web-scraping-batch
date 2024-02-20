@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -19,7 +19,7 @@ import java.time.Duration;
 @Configuration
 public class SeleniumConfig {
 
-    private static final int WAIT_TIMEOUT_SECONDS = 7; // 대기 시간 6.5초
+    private static final int WAIT_TIMEOUT_SECONDS = 7;
     public static final Duration DRIVER_WAIT_DURATION = Duration.ofSeconds(WAIT_TIMEOUT_SECONDS);
 
 
@@ -28,16 +28,37 @@ public class SeleniumConfig {
         ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.EAGER)
                 .addArguments("--incognito")
-//                .addArguments("headless")
+                .addArguments("--headless")
                 .addArguments("--remote-allow-origins=*")
                 .addArguments("--blink-settings=imagesEnabled=false");
         return options;
     }
 
+    @Bean
+    public FirefoxOptions firefoxOptions(){
+        FirefoxOptions options = new FirefoxOptions();
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER)
+                .addArguments("-private")
+                .addArguments("-headless")
+                .addPreference("dom.webnotifications.enabled", false);
+        return options;
+    }
+
+//    @Bean(destroyMethod="quit")
+//    public WebDriver chromeDriver(){
+//       return WebDriverManager.chromedriver()
+//                .clearResolutionCache()
+//                .capabilities(chromeOptions())
+//                .browserInDocker()
+//                .create();
+//    }
+
     @Bean(destroyMethod="quit")
-    public WebDriver chromeDriver(ChromeOptions chromeOptions) {
-        WebDriverManager.chromedriver().setup();
-        return new ChromeDriver(chromeOptions);
+    public WebDriver firefoxDriver(){
+        return WebDriverManager.firefoxdriver()
+                .capabilities(firefoxOptions())
+                .browserInDocker()
+                .create();
     }
 
     @Bean
