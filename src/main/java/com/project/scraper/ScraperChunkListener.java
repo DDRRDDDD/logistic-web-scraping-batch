@@ -19,8 +19,4 @@ public class ScraperChunkListener implements ChunkListener {
         log.info("<<<<<<<<<<<<<< After Chunk >>>>>>>>>>>>>>>");
     }
 
-    @Override
-    public void afterChunkError(ChunkContext context) {
-        log.info("on Error!");
-    }
 }
