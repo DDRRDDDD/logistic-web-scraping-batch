@@ -2,6 +2,7 @@ package com.project.job;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
@@ -22,11 +23,14 @@ public class JobConfig {
 
     private final JobRepository jobRepository;
 
+    private final JobExecutionListener jobExecutionListener;
+
 
     @Bean(DAILY_ALLOCATION_JOB)
     public Job dailyAllocationJob(@Qualifier(DAILY_ALLOCATION_STEP) Step dailyStep){
         return new JobBuilder(DAILY_ALLOCATION_JOB, jobRepository)
                 .incrementer(new RunIdIncrementer())
+                .listener(jobExecutionListener)
                 .start(dailyStep)
                 .build();
     }
@@ -37,6 +41,7 @@ public class JobConfig {
     public Job monthlyAllocationJob(@Qualifier(MONTHLY_ALLOCATION_STEP) Step monthlyStep){
         return new JobBuilder(MONTHLY_ALLOCATION_JOB, jobRepository)
                 .incrementer(new RunIdIncrementer())
+                .listener(jobExecutionListener)
                 .start(monthlyStep)
                 .build();
     }

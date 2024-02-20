@@ -53,8 +53,13 @@ public class SeleniumConfig {
 //    }
 
     @Bean(destroyMethod="quit")
+    public WebDriverManager firefoxDriverManager(){
+        return WebDriverManager.firefoxdriver();
+    }
+
+    @Bean
     public WebDriver firefoxDriver(){
-        return WebDriverManager.firefoxdriver()
+        return firefoxDriverManager()
                 .capabilities(firefoxOptions())
                 .browserInDocker()
                 .create();
