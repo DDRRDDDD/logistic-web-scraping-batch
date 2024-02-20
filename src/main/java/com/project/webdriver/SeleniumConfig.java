@@ -47,7 +47,6 @@ public class SeleniumConfig {
 //    @Bean(destroyMethod="quit")
 //    public WebDriver chromeDriver(){
 //       return WebDriverManager.chromedriver()
-//                .clearResolutionCache()
 //                .capabilities(chromeOptions())
 //                .browserInDocker()
 //                .create();
