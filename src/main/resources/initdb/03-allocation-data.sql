@@ -1,4 +1,4 @@
-USE `allocation-data`;
+# USE `allocation-data`;
 
 DROP TABLE IF EXISTS ALLOCATION;
 
@@ -18,4 +18,4 @@ CREATE TABLE IF NOT EXISTS ALLOCATION
     registration_date date
 );
 
-FLUSH PRIVILEGES
+# FLUSH PRIVILEGES
