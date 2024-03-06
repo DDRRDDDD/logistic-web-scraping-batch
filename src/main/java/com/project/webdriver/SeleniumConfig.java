@@ -44,6 +44,10 @@ public class SeleniumConfig {
         return options;
     }
 
+    /**
+    * 일시적으로 파이어폭스 브라우저를 사용하기로함
+     */
+
 //    @Bean(destroyMethod="quit")
 //    public WebDriver chromeDriver(){
 //       return WebDriverManager.chromedriver()
@@ -60,6 +64,9 @@ public class SeleniumConfig {
     @Bean
     public WebDriver firefoxDriver(){
         return firefoxDriverManager()
+                .avoidDockerLocalFallback()
+                .dockerNetwork("server-net")
+                .dockerTimezone("Asia/Seoul")
                 .capabilities(firefoxOptions())
                 .browserInDocker()
                 .create();
