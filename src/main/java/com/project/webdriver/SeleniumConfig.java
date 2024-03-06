@@ -44,23 +44,16 @@ public class SeleniumConfig {
         return options;
     }
 
-    /**
-    * 일시적으로 파이어폭스 브라우저를 사용하기로함
-     */
 
-//    @Bean(destroyMethod="quit")
-//    public WebDriver chromeDriver(){
-//       return WebDriverManager.chromedriver()
-//                .capabilities(chromeOptions())
-//                .browserInDocker()
-//                .create();
-//    }
 
     @Bean(destroyMethod="quit")
     public WebDriverManager firefoxDriverManager(){
         return WebDriverManager.firefoxdriver();
     }
 
+    /**
+    * 일시적으로 파이어폭스 브라우저를 사용하기로함
+     */
     @Bean
     public WebDriver firefoxDriver(){
         return firefoxDriverManager()
