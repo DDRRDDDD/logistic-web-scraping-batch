@@ -1,7 +1,46 @@
 spring:
   profiles:
+    active: default
+    include: sensitive
     group:
-      default: prod,sensitive
-      dev: dev,sensitive
+      default:
+        - prod
+        - prod-sensitive
+      dev:
+      - local
+      - local-sensitive
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
 
+logging:
+  level:
+    jdbc.core.JdbcTemplate: DEBUG
+    batch.item.database: DEBUG
 
+server:
+  port: 8080
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  batch:
+    jdbc:
+      initialize-schema: NEVER
+    job:
+      name: ${job.name:NONE}
+
+logging:
+  level:
+    root: INFO
+
+server:
+  port: 9090
