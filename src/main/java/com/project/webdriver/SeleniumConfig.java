@@ -52,7 +52,7 @@ public class SeleniumConfig {
     }
 
     /**
-    * 일시적으로 파이어폭스 브라우저를 사용하기로함!!
+    * 일시적으로 파이어폭스 브라우저를 사용하기로함!!!
      */
     @Bean
     public WebDriver firefoxDriver(){
