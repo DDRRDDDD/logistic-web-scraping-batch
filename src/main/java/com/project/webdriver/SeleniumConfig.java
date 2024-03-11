@@ -48,7 +48,11 @@ public class SeleniumConfig {
 
     @Bean(destroyMethod="quit")
     public WebDriverManager firefoxDriverManager(){
-        return WebDriverManager.firefoxdriver();
+        return WebDriverManager.firefoxdriver()
+                .dockerNetwork("server-net")
+                .dockerTimezone("Asia/Seoul")
+                .enableVnc()
+                .browserInDocker();
     }
 
     /**
@@ -57,11 +61,7 @@ public class SeleniumConfig {
     @Bean
     public WebDriver firefoxDriver(){
         return firefoxDriverManager()
-                .avoidDockerLocalFallback()
-                .dockerNetwork("server-net")
-                .dockerTimezone("Asia/Seoul")
                 .capabilities(firefoxOptions())
-                .browserInDocker()
                 .create();
     }
 

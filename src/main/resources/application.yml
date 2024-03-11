@@ -18,12 +18,12 @@ spring:
     jdbc:
       initialize-schema: always
     job:
-      enabled: false
+#      enabled: false
+      name: ${job.name:NONE}
 
 logging:
   level:
-    jdbc.core.JdbcTemplate: DEBUG
-    batch.item.database: DEBUG
+    root: DEBUG
 
 server:
   port: 8080
