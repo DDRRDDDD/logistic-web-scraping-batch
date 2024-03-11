@@ -51,7 +51,7 @@ public class SeleniumConfig {
         return WebDriverManager.firefoxdriver()
                 .dockerNetwork("server-net")
                 .dockerTimezone("Asia/Seoul")
-                .enableVnc()
+//                .enableVnc()
                 .browserInDocker();
     }
 
