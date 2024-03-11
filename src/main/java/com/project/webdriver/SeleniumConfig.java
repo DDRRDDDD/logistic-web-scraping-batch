@@ -52,7 +52,7 @@ public class SeleniumConfig {
                 .avoidDockerLocalFallback()
                 .dockerNetwork("server-net")
                 .dockerTimezone("Asia/Seoul")
-//                .enableVnc()
+                .enableVnc()
                 .browserInDocker();
     }
 
