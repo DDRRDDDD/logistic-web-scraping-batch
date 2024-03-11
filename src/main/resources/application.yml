@@ -40,7 +40,7 @@ spring:
 
 logging:
   level:
-    root: TRACE
+    root: DEBUG
 
 server:
   port: 9090
