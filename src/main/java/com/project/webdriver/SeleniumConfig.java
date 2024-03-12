@@ -49,11 +49,8 @@ public class SeleniumConfig {
     @Bean(destroyMethod="quit")
     public WebDriverManager firefoxDriverManager(){
         return WebDriverManager.firefoxdriver()
-                .avoidDockerLocalFallback()
-                .dockerNetwork("server-net")
-                .dockerTimezone("Asia/Seoul")
-                .enableVnc()
-                .browserInDocker();
+//                .remoteAddress("http://localhost:4444/wd/hub"); // 로컬 테스트 시 selenoid 컨테이너에 접근하는 용도
+                .remoteAddress("http://172.20.3.16:4444/wd/hub");
     }
 
     /**
