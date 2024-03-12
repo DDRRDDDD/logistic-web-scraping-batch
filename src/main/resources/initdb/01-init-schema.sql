@@ -1,8 +1,8 @@
-CREATE DATABASE IF NOT EXISTS `batch-status`;
-CREATE DATABASE IF NOT EXISTS `allocation-data`;
+CREATE DATABASE IF NOT EXISTS `batch_status`;
+CREATE DATABASE IF NOT EXISTS `allocation_data`;
 
-GRANT ALL ON `batch-status`.* TO 'user'@'%';
-GRANT ALL ON `allocation-data`.* TO 'user'@'%';
+GRANT ALL ON `batch_status`.* TO 'user'@'%';
+GRANT ALL ON `allocation_data`.* TO 'user'@'%';
 
 FLUSH PRIVILEGES;
 
