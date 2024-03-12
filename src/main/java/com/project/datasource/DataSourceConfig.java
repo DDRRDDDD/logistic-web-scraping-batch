@@ -2,7 +2,6 @@ package com.project.datasource;
 
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.boot.autoconfigure.batch.BatchDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +16,7 @@ import javax.sql.DataSource;
 public class DataSourceConfig {
 
     @Bean
-    @ConfigurationProperties("spring.datasource.hikari.primary")
+    @ConfigurationProperties("spring.datasource.hikari.allocation-data")
     public DataSource allocationDataSource(){
         return DataSourceBuilder.create()
                 .type(HikariDataSource.class)
