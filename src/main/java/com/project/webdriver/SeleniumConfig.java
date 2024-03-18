@@ -19,7 +19,7 @@ import java.time.Duration;
 @Configuration
 public class SeleniumConfig {
 
-    private static final int WAIT_TIMEOUT_SECONDS = 7;
+    private static final int WAIT_TIMEOUT_SECONDS = 10;
     public static final Duration DRIVER_WAIT_DURATION = Duration.ofSeconds(WAIT_TIMEOUT_SECONDS);
 
 
