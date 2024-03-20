@@ -1,6 +1,6 @@
 package com.project.page.object;
 
-import com.project.common.BeanManager;
+import com.project.common.PageBeanFactory;
 import com.project.metadata.UserInfo;
 import com.project.page.Page;
 import com.project.page.base.BasePage;
@@ -33,7 +33,7 @@ public class MainPage extends BasePage {
 
     public AllocationPage goToAllocationPage(){
         allocationPageButton.click();
-        return BeanManager.getPage(AllocationPage.class);
+        return PageBeanFactory.getPage(AllocationPage.class);
     }
 
 }

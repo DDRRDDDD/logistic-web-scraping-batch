@@ -1,7 +1,7 @@
 package com.project.page.object;
 
 
-import com.project.common.BeanManager;
+import com.project.common.PageBeanFactory;
 import com.project.metadata.DateRange;
 import com.project.page.Page;
 import com.project.page.base.BasePage;
@@ -56,7 +56,7 @@ public class AllocationPage extends BasePage {
             return new AllocationDataPopup.VoidDataPopup();
         }
         orderCodesByDataTable.get(orderCodeIndex).click();
-        return BeanManager.getPage(AllocationDataPopup.class);
+        return PageBeanFactory.getPage(AllocationDataPopup.class);
     }
 
 }

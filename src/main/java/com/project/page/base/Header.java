@@ -1,6 +1,6 @@
 package com.project.page.base;
 
-import com.project.common.BeanManager;
+import com.project.common.PageBeanFactory;
 import com.project.metadata.Menu;
 import com.project.page.Page;
 import com.project.page.object.MainPage;
@@ -19,7 +19,7 @@ public class Header {
 
     public MainPage goToMainPage(){
         mainLogoAnchor.click();
-        return BeanManager.getPage(MainPage.class);
+        return PageBeanFactory.getPage(MainPage.class);
     }
 
 
@@ -27,7 +27,7 @@ public class Header {
     public <T> T goToPageByMyPageMenu(Menu<T> menu){
         WebElementCommander.with(myPageLinkAnchor)
                     .selectByOptionText(menu.getOption());
-        return BeanManager.getPage(menu.getPageClass());
+        return PageBeanFactory.getPage(menu.getPageClass());
     }
 
 }

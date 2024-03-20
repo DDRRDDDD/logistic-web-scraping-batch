@@ -1,12 +1,12 @@
 package com.project.page.base;
 
 
-import com.project.common.BeanManager;
+import com.project.common.PageBeanFactory;
 
 public class BasePage {
 
     public Header toHeader(){
-        return BeanManager.getBean("header", Header.class);
+        return PageBeanFactory.getPage(Header.class);
     }
 
 }
