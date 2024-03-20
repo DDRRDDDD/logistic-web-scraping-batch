@@ -18,31 +18,16 @@ public class PageLoadAdvice implements MethodInterceptor {
     private static final String COMPLETE_READY_STATE = "complete";
 
 
-    @Nullable @Override
+    @Nullable
+    @Override
     public Object invoke(@Nonnull MethodInvocation invocation) throws Throwable {
-        WebDriverUtils.waitUntil(expectedCondition());
+        WebDriverUtils.waitUntil(webDriver -> isPageLoaded());
         log.info("Page load complete. Proceeding with method : {}", invocation.getMethod().getName());
+
         return invocation.proceed();
     }
 
-    private ExpectedCondition<Boolean> expectedCondition(){
-        return (webDriver) -> {
-            try{
-                return Boolean.logicalAnd(isJQueryLoaded(), isPageLoaded());
-            }catch(Exception exception){
-                return Boolean.TRUE;
-            }
-        };
-    }
-
-
-    private boolean isJQueryLoaded() {
-        return WebDriverUtils.getJavascriptExecutor()
-                .executeScript("return jQuery.active === 0")
-                .toString()
-                .equals(BooleanUtils.TRUE);
-    }
-
+    // WebControlAgent로 옮겨질 예정
     private boolean isPageLoaded() {
         return WebDriverUtils.getJavascriptExecutor()
                 .executeScript("return document.readyState")
