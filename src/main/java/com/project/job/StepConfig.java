@@ -43,9 +43,6 @@ public class StepConfig {
     }
 
 
-
-
-
     @JobScope
     @Bean(DAILY_ALLOCATION_STEP)
     public Step dailyAllocationStep(@Qualifier("dailyAllocationItemScraper") ItemStreamReader<Map<String, String>> itemReader,
