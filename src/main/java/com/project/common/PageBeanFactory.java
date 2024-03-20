@@ -10,11 +10,7 @@ import org.springframework.stereotype.Component;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access=PRIVATE)
-public class BeanManager {
-
-    public static <T> T getBean(String beanName, Class<T> beanClass){
-        return ApplicationContextProvider.getContext().getBean(beanName, beanClass);
-    }
+public class PageBeanFactory {
 
     public static <T> T getPage(Class<T> pageClass){
         return ApplicationContextProvider.getContext().getBean(pageClass);
@@ -28,7 +24,7 @@ public class BeanManager {
 
         @Override
         public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
-            context = applicationContext;
+            ApplicationContextProvider.context = applicationContext;
         }
 
         private static ApplicationContext getContext(){
