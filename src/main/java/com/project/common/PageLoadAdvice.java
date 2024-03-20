@@ -28,7 +28,7 @@ public class PageLoadAdvice implements MethodInterceptor {
     private ExpectedCondition<Boolean> expectedCondition(){
         return (webDriver) -> {
             try{
-                return Boolean.logicalAnd(isJQueryLoaded(), isJSLoaded());
+                return Boolean.logicalAnd(isJQueryLoaded(), isPageLoaded());
             }catch(Exception exception){
                 return Boolean.TRUE;
             }
@@ -43,7 +43,7 @@ public class PageLoadAdvice implements MethodInterceptor {
                 .equals(BooleanUtils.TRUE);
     }
 
-    private boolean isJSLoaded() {
+    private boolean isPageLoaded() {
         return WebDriverUtils.getJavascriptExecutor()
                 .executeScript("return document.readyState")
                 .toString()
