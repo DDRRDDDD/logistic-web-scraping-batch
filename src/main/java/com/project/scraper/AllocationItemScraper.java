@@ -1,11 +1,9 @@
 package com.project.scraper;
 
 import com.project.metadata.DateRange;
-import com.project.metadata.Menu;
 import com.project.metadata.UserInfo;
 import com.project.page.object.AllocationPage;
 import com.project.page.object.MainPage;
-import com.project.webdriver.WebDriverUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ExecutionContext;
