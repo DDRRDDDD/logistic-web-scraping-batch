@@ -1,9 +1,8 @@
 package com.project.page.object;
 
 import com.project.page.Page;
-import com.project.webdriver.WebDriverUtils;
+import com.project.webdriver.WebControlAgent;
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,7 +15,7 @@ import java.util.stream.IntStream;
 import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 
 @Slf4j
-@Page(pageScope=SCOPE_PROTOTYPE)
+@Page(pageScope = SCOPE_PROTOTYPE)
 public class AllocationDataPopup {
 
     @FindBy(xpath = "//*[@id=\"cargoDetailView01\"]/table/tbody/tr/td[1]")
@@ -25,37 +24,31 @@ public class AllocationDataPopup {
     @FindBy(xpath = "//*[@id=\"cargoDetailView01\"]/table/tbody/tr/td[2]")
     private List<WebElement> dataValues;
 
+    private Map<String, String> resultData;
 
     @PostConstruct
-    public void openPopup(){
-        WebDriverUtils.switchToWindow();
+    public void openPopup() {
+        WebControlAgent.switchToWindow();
     }
 
-    public Map<String, String> extractAllocationData(){
-        return perform(
-            IntStream.range(0, dataKeys.size())
-                .boxed()
+    public Map<String, String> extractAllocationData() {
+        setResultData();
+        WebControlAgent.closeCurrentWindow();
+        WebControlAgent.switchToWindow();
+        return resultData;
+    }
+
+    /**
+     * DTO로 변경 검토 중
+     */
+    private void setResultData() {
+        resultData = IntStream.range(0, dataKeys.size()).boxed()
                 .collect(Collectors.toMap(
-                    index -> dataKeys.get(index).getText(),
-                    index -> dataValues.get(index).getText()
-                ))
-        );
+                        index -> dataKeys.get(index).getText(),
+                        index -> dataValues.get(index).getText()
+                ));
     }
 
-    @PreDestroy
-    public void closePopup(){
-        WebDriverUtils.closeCurrentWindow();
-        WebDriverUtils.switchToWindow();
-    }
-
-    public <T> T perform(T result){
-        try{
-            return result;
-        }
-        finally {
-            closePopup();
-        }
-    }
 
     static class VoidDataPopup extends AllocationDataPopup {
 

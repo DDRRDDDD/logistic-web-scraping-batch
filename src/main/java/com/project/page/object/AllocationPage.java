@@ -4,10 +4,12 @@ package com.project.page.object;
 import com.project.common.PageBeanFactory;
 import com.project.metadata.DateRange;
 import com.project.page.Page;
-import com.project.page.base.BasePage;
-import com.project.webdriver.WebElementCommander;
+import com.project.webdriver.WebControlAgent;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -15,44 +17,50 @@ import java.util.List;
 @Page
 public class AllocationPage extends BasePage {
 
-    @FindBy(id="startDate")
+    @FindBy(id = "startDate")
     private WebElement startDateInput;
-    @FindBy(id="endDate")
+    @FindBy(id = "endDate")
     private WebElement endDateInput;
-    @FindBy(id="countTime")
+    @FindBy(id = "countTime")
     private WebElement countTimeText;
-    @FindBy(className="ok01")
+    @FindBy(className = "ok01")
     private WebElement searchButton;
 
-    @FindBy(xpath="//*[@id=\"myTable\"]/tbody/tr/td[2]/a")
+    @FindBy(xpath = "//*[@id=\"myTable\"]/tbody/tr/td[2]/a")
     private List<WebElement> orderCodesByDataTable;
 
 
-    public AllocationPage setDateRange(DateRange dateRange){
-        WebElementCommander.with(startDateInput).enterDate(dateRange.getStartDateOfMonth());
-        WebElementCommander.with(endDateInput).enterDate(dateRange.getEndDateOfMonth());
+    public AllocationPage setDateRange(DateRange dateRange) {
+        startDateInput.click();
+        startDateInput.clear();
+        startDateInput.sendKeys(dateRange.getStartDateOfMonth());
+        startDateInput.sendKeys(Keys.ESCAPE);
+
+        endDateInput.click();
+        endDateInput.clear();
+        endDateInput.sendKeys(dateRange.getEndDateOfMonth());
+        endDateInput.sendKeys(Keys.ESCAPE);
         return this;
     }
-
 
     /**
      * 메서드 호출시 orderCodesByDataTable 의 값이 변경될 수 있습니다.
      */
 
     public AllocationPage clickSearchButton() {
-        WebElementCommander.with(searchButton)
-                .waitForValue(countTimeText, "검색가능")
-                .click();
+        ExpectedCondition<Boolean> expectedCondition =
+                ExpectedConditions.attributeToBe(countTimeText, "value", "검색가능");
+        WebControlAgent.waitUntil(expectedCondition);
+        searchButton.click();
         return this;
     }
 
-    public int getDataTableCount(){
+    public int getDataTableCount() {
         return orderCodesByDataTable.size();
     }
 
-
-    public AllocationDataPopup openAllocationDataPopupByOrderCodeIndex(int orderCodeIndex){
-        if(orderCodesByDataTable.size() <= orderCodeIndex){
+    public AllocationDataPopup openAllocationDataPopupByOrderCodeIndex(int orderCodeIndex) {
+        if (orderCodesByDataTable.size() <= orderCodeIndex) {
             return new AllocationDataPopup.VoidDataPopup();
         }
         orderCodesByDataTable.get(orderCodeIndex).click();
