@@ -1,13 +1,13 @@
 package com.project.job;
 
+import com.project.scraper.AllocationItemScraper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ChunkListener;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.item.ItemStreamReader;
-import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -45,8 +45,8 @@ public class StepConfig {
 
     @JobScope
     @Bean(DAILY_ALLOCATION_STEP)
-    public Step dailyAllocationStep(@Qualifier("dailyAllocationItemScraper") ItemStreamReader<Map<String, String>> itemReader,
-                                    ItemWriter<Map<String, String>> itemWriter) {
+    public Step dailyAllocationStep(@Qualifier("dailyAllocationItemScraper") AllocationItemScraper itemReader,
+                                    JdbcBatchItemWriter<Map<String, String>> itemWriter) {
         return new StepBuilder(DAILY_ALLOCATION_STEP, jobRepository)
                 .<Map<String, String>, Map<String, String>>chunk(chunkSize, allocationTransactionManager)
                 .listener(chunkListener)
@@ -58,8 +58,8 @@ public class StepConfig {
 
     @JobScope
     @Bean(MONTHLY_ALLOCATION_STEP)
-    public Step yearlyAllocationStep(@Qualifier("monthlyAllocationItemScraper") ItemStreamReader<Map<String, String>> itemReader,
-                                     ItemWriter<Map<String, String>> itemWriter) {
+    public Step yearlyAllocationStep(@Qualifier("monthlyAllocationItemScraper") AllocationItemScraper itemReader,
+                                     JdbcBatchItemWriter<Map<String, String>> itemWriter) {
         return new StepBuilder(MONTHLY_ALLOCATION_STEP, jobRepository)
                 .<Map<String, String>, Map<String, String>>chunk(chunkSize, allocationTransactionManager)
                 .listener(chunkListener)
