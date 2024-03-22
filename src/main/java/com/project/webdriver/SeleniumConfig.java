@@ -59,7 +59,7 @@ public class SeleniumConfig {
     @Bean
     public RemoteWebDriver webDriver() {
         WebDriver webDriver = webDriverManager().create();
-        Assert.isTrue(webDriver instanceof RemoteWebDriver, "WebDriverManager 구성에 문제가 있을 수 있습니다.");
+        Assert.isInstanceOf(RemoteWebDriver.class, webDriver, "WebDriverManager 구성에 문제가 있을 수 있습니다.");
         return (RemoteWebDriver) webDriver;
     }
 
