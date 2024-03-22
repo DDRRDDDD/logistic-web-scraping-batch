@@ -60,11 +60,11 @@ public class AllocationPage extends BasePage {
     }
 
     public AllocationDataPopup openAllocationDataPopupByOrderCodeIndex(int orderCodeIndex) {
-        if (orderCodesByDataTable.size() <= orderCodeIndex) {
-            return new AllocationDataPopup.VoidDataPopup();
+        if (orderCodeIndex < orderCodesByDataTable.size()){
+            orderCodesByDataTable.get(orderCodeIndex).click();
+            return PageBeanFactory.getPage(AllocationDataPopup.class);
         }
-        orderCodesByDataTable.get(orderCodeIndex).click();
-        return PageBeanFactory.getPage(AllocationDataPopup.class);
+        return new AllocationDataPopup.VoidDataPopup();
     }
 
 }
