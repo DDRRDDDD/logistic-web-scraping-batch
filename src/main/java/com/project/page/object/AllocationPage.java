@@ -17,6 +17,9 @@ import java.util.List;
 @Page
 public class AllocationPage extends BasePage {
 
+    private static final String ATTRIBUTE_NAME = "value";
+    private static final String SEARCH_POSSIBLE_VALUE = "검색가능";
+
     @FindBy(id = "startDate")
     private WebElement startDateInput;
     @FindBy(id = "endDate")
@@ -49,7 +52,7 @@ public class AllocationPage extends BasePage {
 
     public AllocationPage clickSearchButton() {
         ExpectedCondition<Boolean> expectedCondition =
-                ExpectedConditions.attributeToBe(countTimeText, "value", "검색가능");
+                ExpectedConditions.attributeToBe(countTimeText, ATTRIBUTE_NAME, SEARCH_POSSIBLE_VALUE);
         WebControlAgent.waitUntil(expectedCondition);
         searchButton.click();
         return this;
