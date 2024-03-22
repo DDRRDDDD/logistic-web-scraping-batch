@@ -3,7 +3,7 @@ package com.project.common;
 import com.project.page.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aopalliance.aop.Advice;
+import org.aopalliance.intercept.MethodInterceptor;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -11,16 +11,17 @@ import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
-public class PageObjectInitializer implements BeanPostProcessor {
+@RequiredArgsConstructor(onConstructor_= {@Lazy})
+public class PagePostProcessor implements BeanPostProcessor {
 
-    private final Advice pageLoadAdvice;
+    private final MethodInterceptor pageLoadAdvice;
 
     private final ElementLocatorFactory ajaxElementLocatorFactory;
 
