@@ -84,8 +84,7 @@ public class WebControlAgent {
         }
 
         private static Actions getWebActions() {
-            WebDriver actionsWebDriver = getWebDriver();
-            return new Actions(actionsWebDriver);
+            return new Actions(getWebDriver());
         }
     }
 }
