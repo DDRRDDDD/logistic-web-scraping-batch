@@ -32,7 +32,7 @@ public class Header {
         ExpectedCondition<WebElement> expectedCondition =
                 ExpectedConditions.elementToBeClickable(menuOptionLocator);
 
-        WebControlAgent.waitUntil(expectedCondition);
+        WebControlAgent.waitUntil(expectedCondition).click();
         return PageBeanFactory.getPage(menu.getPageClass());
     }
 
