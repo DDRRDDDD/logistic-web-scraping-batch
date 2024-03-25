@@ -11,6 +11,11 @@ import org.springframework.util.Assert;
 
 import static lombok.AccessLevel.PRIVATE;
 
+/**
+ * 페이지 객체에서만 사용해주세요.
+ * 스프링 빈 생명주기에 영향을 줄 수 있습니다.
+ */
+
 @NoArgsConstructor(access=PRIVATE)
 public class PageBeanFactory {
 
