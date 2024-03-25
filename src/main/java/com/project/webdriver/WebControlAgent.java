@@ -23,24 +23,12 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public class WebControlAgent {
 
-    public static void openUrl(String pageUrl) {
-        WebDriverProvider.getWebDriver().get(pageUrl);
-    }
-
     public static <V> V waitUntil(Function<? super WebDriver, V> condition) {
         return WebDriverProvider.getWebDriverWait().until(condition);
     }
 
     public static void moveBy(WebElement element) {
         WebDriverProvider.getWebActions().moveToElement(element).perform();
-    }
-
-    public static void waitUntilPageLoad(String expectedState) {
-        boolean isPageLoaded = WebDriverProvider.getJavascriptExecutor()
-                .executeScript("return document.readyState")
-                .toString().equals(expectedState);
-
-        waitUntil(webDriver -> isPageLoaded);
     }
 
     public static void switchToWindow() {
