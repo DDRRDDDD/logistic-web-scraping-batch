@@ -15,11 +15,16 @@ import java.util.function.Function;
 
 import static lombok.AccessLevel.PRIVATE;
 
+/**
+ * 페이지 객체에서만 사용해주세요.
+ * 스프링 빈 생명주기에 영향을 줄 수 있습니다.
+ */
+
 @NoArgsConstructor(access = PRIVATE)
 public class WebControlAgent {
 
-    public static WebElement findElement(By by) {
-        return WebDriverProvider.getWebDriver().findElement(by);
+    public static void openUrl(String pageUrl) {
+        WebDriverProvider.getWebDriver().get(pageUrl);
     }
 
     public static <V> V waitUntil(Function<? super WebDriver, V> condition) {
