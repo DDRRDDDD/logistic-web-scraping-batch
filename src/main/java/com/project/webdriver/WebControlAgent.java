@@ -61,7 +61,7 @@ public class WebControlAgent {
 
         @Override
         public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-            context = applicationContext;
+            WebDriverProvider.context = applicationContext;
         }
 
         private static WebDriver getWebDriver() {
