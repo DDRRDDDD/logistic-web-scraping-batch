@@ -19,7 +19,7 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access=PRIVATE)
 public class PageBeanFactory {
 
-    public static <T> T getPage(Class<T> pageClass){
+    public static <T> T getPage(Class<T> pageClass) {
         Assert.isTrue(pageClass.isAnnotationPresent(Page.class), "This class is not registered as a page.");
         return ApplicationContextProvider.getContext().getBean(pageClass);
     }
