@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
@@ -23,16 +24,21 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public class WebControlAgent {
 
+    public static void loadPage(String pageUrl) {
+        String resolvedUrl = WebControlSupporter.getEnvironment().resolveRequiredPlaceholders(pageUrl);
+        WebControlSupporter.getWebDriver().get(resolvedUrl);
+    }
+
     public static <V> V waitUntil(Function<? super WebDriver, V> condition) {
-        return WebDriverProvider.getWebDriverWait().until(condition);
+        return WebControlSupporter.getWebDriverWait().until(condition);
     }
 
     public static void moveBy(WebElement element) {
-        WebDriverProvider.getWebActions().moveToElement(element).perform();
+        WebControlSupporter.getWebActions().moveToElement(element).perform();
     }
 
     public static void switchToWindow() {
-        WebDriver webDriver = WebDriverProvider.getWebDriver();
+        WebDriver webDriver = WebControlSupporter.getWebDriver();
         String currentWindow = getCurrentWindowHandle();
 
         webDriver.getWindowHandles().stream()
@@ -42,12 +48,12 @@ public class WebControlAgent {
     }
 
     public static void closeCurrentWindow() {
-        WebDriverProvider.getWebDriver().close();
+        WebControlSupporter.getWebDriver().close();
     }
 
     private static String getCurrentWindowHandle() {
         try{
-            return WebDriverProvider.getWebDriver().getWindowHandle();
+            return WebControlSupporter.getWebDriver().getWindowHandle();
         }catch(NoSuchWindowException exception){
             return StringUtils.EMPTY;
         }
@@ -55,13 +61,13 @@ public class WebControlAgent {
 
 
     @Component
-    private static class WebDriverProvider implements ApplicationContextAware {
+    private static class WebControlSupporter implements ApplicationContextAware {
 
         private static ApplicationContext context;
 
         @Override
         public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-            WebDriverProvider.context = applicationContext;
+            WebControlSupporter.context = applicationContext;
         }
 
         private static WebDriver getWebDriver() {
@@ -78,6 +84,10 @@ public class WebControlAgent {
 
         private static Actions getWebActions() {
             return new Actions(getWebDriver());
+        }
+
+        private static Environment getEnvironment() {
+            return context.getEnvironment();
         }
     }
 }
