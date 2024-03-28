@@ -18,17 +18,17 @@ import static com.project.job.StepConfig.*;
 @RequiredArgsConstructor
 public class JobConfig {
 
-    public static final String DAILY_ALLOCATION_JOB = "DAILY_ALLOCATION_JOB";
-    public static final String MONTHLY_ALLOCATION_JOB = "MONTHLY_ALLOCATION_JOB";
+    public static final String DAILY_A_SCENARIO_JOB = "DAILY_A_SCENARIO_JOB";
+    public static final String MONTHLY_A_SCENARIO_JOB = "MONTHLY_A_SCENARIO_JOB";
 
     private final JobRepository jobRepository;
 
     private final JobExecutionListener jobExecutionListener;
 
 
-    @Bean(DAILY_ALLOCATION_JOB)
-    public Job dailyAllocationJob(@Qualifier(DAILY_ALLOCATION_STEP) Step dailyStep){
-        return new JobBuilder(DAILY_ALLOCATION_JOB, jobRepository)
+    @Bean(DAILY_A_SCENARIO_JOB)
+    public Job dailyAllocationJob(@Qualifier(DAILY_A_SCENARIO_STEP) Step dailyStep){
+        return new JobBuilder(DAILY_A_SCENARIO_JOB, jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .listener(jobExecutionListener)
                 .start(dailyStep)
@@ -37,9 +37,9 @@ public class JobConfig {
 
 
 
-    @Bean(MONTHLY_ALLOCATION_JOB)
-    public Job monthlyAllocationJob(@Qualifier(MONTHLY_ALLOCATION_STEP) Step monthlyStep){
-        return new JobBuilder(MONTHLY_ALLOCATION_JOB, jobRepository)
+    @Bean(MONTHLY_A_SCENARIO_JOB)
+    public Job monthlyAllocationJob(@Qualifier(MONTHLY_A_SCENARIO_STEP) Step monthlyStep){
+        return new JobBuilder(MONTHLY_A_SCENARIO_JOB, jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .listener(jobExecutionListener)
                 .start(monthlyStep)
