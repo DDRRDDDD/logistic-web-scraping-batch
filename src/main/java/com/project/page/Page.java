@@ -1,6 +1,7 @@
 package com.project.page;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
@@ -21,7 +22,7 @@ public @interface Page {
 
     boolean homePage() default false;
 
-    String url() default "";
+    String url() default StringUtils.EMPTY;
 
     @AliasFor(annotation=Scope.class, attribute="scopeName")
     String pageScope() default ConfigurableBeanFactory.SCOPE_SINGLETON;
