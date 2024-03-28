@@ -11,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.project.job.JobConfig.DAILY_ALLOCATION_JOB;
-import static com.project.job.JobConfig.MONTHLY_ALLOCATION_JOB;
+import static com.project.job.JobConfig.*;
 
 @SpringBootTest
 @SpringBatchTest
@@ -22,11 +21,11 @@ public class BatchTest {
     private JobLauncherTestUtils jobLauncherTestUtils;
 
     @Autowired
-    @Qualifier(DAILY_ALLOCATION_JOB)
+    @Qualifier(DAILY_A_SCENARIO_JOB)
     private Job dailyAllocationJob;
 
     @Autowired
-    @Qualifier(MONTHLY_ALLOCATION_JOB)
+    @Qualifier(MONTHLY_A_SCENARIO_JOB)
     private Job monthlyAllocationJob;
 
 
