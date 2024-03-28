@@ -23,7 +23,7 @@ public class PagePostProcessor implements BeanPostProcessor {
 
     private final MethodInterceptor pageLoadAdvice;
 
-    private final ElementLocatorFactory ajaxElementLocatorFactory;
+    private final ElementLocatorFactory reactiveElementLocatorFactory;
 
     private final Environment environment;
 
@@ -32,8 +32,9 @@ public class PagePostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        if(bean.getClass().isAnnotationPresent(Page.class)){
-           navigateToHomePageIfRequired(bean);
+        if(bean.getClass().isAnnotationPresent(Page.class)) {
+            Page pageAnnotation = bean.getClass().getAnnotation(Page.class);
+            navigateToHomePageIfRequired(pageAnnotation);
         }
         return bean;
     }
@@ -41,21 +42,18 @@ public class PagePostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        if(bean.getClass().isAnnotationPresent(Page.class)){
-            pageElementsInitialization(bean, beanName);
+        if(bean.getClass().isAnnotationPresent(Page.class)) {
+            PageFactory.initElements(reactiveElementLocatorFactory, bean);
             return generatePageObjectProxy(bean);
         }
         return bean;
     }
 
 
-    private void navigateToHomePageIfRequired(Object bean){
-        Page pageAnnotation = bean.getClass().getAnnotation(Page.class);
+    private void navigateToHomePageIfRequired(Page pageAnnotation){
         String connectUrl = pageAnnotation.url();
-
-        if (pageAnnotation.homePage() && StringUtils.isNotEmpty(connectUrl)) {
+        if(pageAnnotation.homePage() && StringUtils.isNotEmpty(connectUrl)) {
             webDriver.get(environment.resolvePlaceholders(connectUrl));
-            log.info("Navigating to home page : {}", webDriver.getCurrentUrl());
         }
     }
 
@@ -64,11 +62,5 @@ public class PagePostProcessor implements BeanPostProcessor {
         ProxyFactory proxyFactory = new ProxyFactory(bean);
         proxyFactory.addAdvice(pageLoadAdvice);
         return proxyFactory.getProxy();
-    }
-
-
-    private void pageElementsInitialization(Object bean, String beanName){
-        PageFactory.initElements(ajaxElementLocatorFactory, bean);
-        log.info("Initialize Page Object : {}", beanName);
     }
 }
