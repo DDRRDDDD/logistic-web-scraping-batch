@@ -39,7 +39,7 @@ public class AllocationDataPopup {
     }
 
     /**
-     * DTO로 변경 검토 중
+     * Map을 감싸는 클래스 생각 중
      */
     private void setResultData() {
         resultData = IntStream.range(0, dataKeys.size()).boxed()
