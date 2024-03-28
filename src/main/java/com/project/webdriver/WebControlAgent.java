@@ -24,21 +24,16 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public class WebControlAgent {
 
-    public static void loadPage(String pageUrl) {
-        String resolvedUrl = WebControlSupporter.getEnvironment().resolveRequiredPlaceholders(pageUrl);
-        WebControlSupporter.getWebDriver().get(resolvedUrl);
-    }
-
     public static <V> V waitUntil(Function<? super WebDriver, V> condition) {
-        return WebControlSupporter.getWebDriverWait().until(condition);
+        return WebDriverProvider.getWebDriverWait().until(condition);
     }
 
     public static void moveBy(WebElement element) {
-        WebControlSupporter.getWebActions().moveToElement(element).perform();
+        WebDriverProvider.getWebActions().moveToElement(element).perform();
     }
 
     public static void switchToWindow() {
-        WebDriver webDriver = WebControlSupporter.getWebDriver();
+        WebDriver webDriver = WebDriverProvider.getWebDriver();
         String currentWindow = getCurrentWindowHandle();
 
         webDriver.getWindowHandles().stream()
@@ -48,12 +43,12 @@ public class WebControlAgent {
     }
 
     public static void closeCurrentWindow() {
-        WebControlSupporter.getWebDriver().close();
+        WebDriverProvider.getWebDriver().close();
     }
 
     private static String getCurrentWindowHandle() {
         try{
-            return WebControlSupporter.getWebDriver().getWindowHandle();
+            return WebDriverProvider.getWebDriver().getWindowHandle();
         }catch(NoSuchWindowException exception){
             return StringUtils.EMPTY;
         }
@@ -61,13 +56,13 @@ public class WebControlAgent {
 
 
     @Component
-    private static class WebControlSupporter implements ApplicationContextAware {
+    private static class WebDriverProvider implements ApplicationContextAware {
 
         private static ApplicationContext context;
 
         @Override
         public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-            WebControlSupporter.context = applicationContext;
+            WebDriverProvider.context = applicationContext;
         }
 
         private static WebDriver getWebDriver() {
@@ -84,10 +79,6 @@ public class WebControlAgent {
 
         private static Actions getWebActions() {
             return new Actions(getWebDriver());
-        }
-
-        private static Environment getEnvironment() {
-            return context.getEnvironment();
         }
     }
 }
