@@ -69,11 +69,16 @@ public class WebScraperBuilder<T> {
                 if(ObjectUtils.isEmpty(readScraper)){
                     return null;
                 }
-                log.info("Reading web data : {}th", getCurrentItemCount());
-                return readScraper.apply(this, scenario);
+
+                T result = readScraper.apply(this, scenario);
+
+                if(ObjectUtils.isEmpty(result)){
+                    return null;
+                }
+
+                log.info("Record  was retrieved. - [Item counts : {}]", getCurrentItemCount());
+                return result;
             }
-
         };
-
     }
 }
