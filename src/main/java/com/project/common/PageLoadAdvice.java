@@ -25,7 +25,8 @@ public class PageLoadAdvice implements MethodInterceptor {
     @Override
     public Object invoke(@Nonnull MethodInvocation invocation) throws Throwable {
         webDriverWait.until(unusedWebDriver -> isPageLoaded());
-        log.info("Page load complete. Proceeding with method : {}", invocation.getMethod().getName());
+        log.info("Page load complete. Continuing with the process");
+        log.info("Method name : {}", invocation.getMethod().getName());
         return invocation.proceed();
     }
 
