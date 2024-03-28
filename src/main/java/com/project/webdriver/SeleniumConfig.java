@@ -1,7 +1,6 @@
 package com.project.webdriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.PageLoadStrategy;
@@ -9,8 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,12 +15,20 @@ import org.springframework.util.Assert;
 
 import java.time.Duration;
 
-@Slf4j
+import static org.springframework.beans.factory.support.AbstractBeanDefinition.SCOPE_DEFAULT;
+
+
 @Configuration
 public class SeleniumConfig {
 
-    private static final int WAIT_TIMEOUT_SECONDS = 10;
+    public static final int WAIT_TIMEOUT_SECONDS = 10;
+
+    /** 1초 주기 polling 요청 */
+    public static final int POLLING_INTERVAL =  1;
+
     public static final Duration DRIVER_WAIT_DURATION = Duration.ofSeconds(WAIT_TIMEOUT_SECONDS);
+
+    public static final Duration DRIVER_POLLING_INTERVAL_DURATION = Duration.ofSeconds(POLLING_INTERVAL);
 
     @Bean
     public Capabilities chromeOptions() {
@@ -49,14 +54,15 @@ public class SeleniumConfig {
     /**
      * 추후 드라이버 이름을 환경변수로 받아 실행시킬 계획
      * ex. firefoxdriver, firefoxOptions 부분을 파라미터로 받을 예정
-     * */
+     */
     @Bean
     public WebDriverManager webDriverManager() {
         return WebDriverManager.firefoxdriver()
                 .capabilities(firefoxOptions())
                 .remoteAddress("http://172.20.3.16:4444/wd/hub");
     }
-    @Bean
+
+    @Bean(destroyMethod = SCOPE_DEFAULT) // 실험적임 추후 변경할 가능성이 높음
     public RemoteWebDriver webDriver() {
         WebDriver webDriver = webDriverManager().create();
         Assert.isInstanceOf(RemoteWebDriver.class, webDriver,
@@ -67,14 +73,8 @@ public class SeleniumConfig {
     @Bean
     public WebDriverWait webDriverWait(WebDriver webDriver) {
         WebDriverWait driverWait = new WebDriverWait(webDriver, DRIVER_WAIT_DURATION);
+        driverWait.pollingEvery(DRIVER_POLLING_INTERVAL_DURATION);
         driverWait.ignoring(NoSuchElementException.class);
         return driverWait;
     }
-
-    @Bean
-    public ElementLocatorFactory ajaxElementLocatorFactory(WebDriver webDriver) {
-        return new AjaxElementLocatorFactory(webDriver, WAIT_TIMEOUT_SECONDS);
-    }
-
-
 }
