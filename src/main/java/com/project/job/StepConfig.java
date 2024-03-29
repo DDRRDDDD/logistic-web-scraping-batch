@@ -27,18 +27,15 @@ public class StepConfig {
 
     private final PlatformTransactionManager allocationTransactionManager;
 
-    private final ChunkListener chunkListener;
-
 
     @Value("${chunkSize:10}")
     private int chunkSize;
 
 
-    public StepConfig(JobRepository jobRepository, ChunkListener chunkListener,
-                      @Qualifier("allocationTransactionManager") PlatformTransactionManager transactionManager)
+    public StepConfig(@Qualifier("allocationTransactionManager") PlatformTransactionManager transactionManager,
+                      JobRepository jobRepository)
     {
         this.jobRepository = jobRepository;
-        this.chunkListener = chunkListener;
         this.allocationTransactionManager = transactionManager;
     }
 
@@ -49,7 +46,6 @@ public class StepConfig {
                                     JdbcBatchItemWriter<Map<String, String>> itemWriter) {
         return new StepBuilder(DAILY_A_SCENARIO_STEP, jobRepository)
                 .<Map<String, String>, Map<String, String>>chunk(chunkSize, allocationTransactionManager)
-                .listener(chunkListener)
                 .reader(itemReader)
                 .writer(itemWriter)
                 .build();
@@ -62,7 +58,6 @@ public class StepConfig {
                                      JdbcBatchItemWriter<Map<String, String>> itemWriter) {
         return new StepBuilder(MONTHLY_A_SCENARIO_STEP, jobRepository)
                 .<Map<String, String>, Map<String, String>>chunk(chunkSize, allocationTransactionManager)
-                .listener(chunkListener)
                 .reader(itemReader)
                 .writer(itemWriter)
                 .build();
