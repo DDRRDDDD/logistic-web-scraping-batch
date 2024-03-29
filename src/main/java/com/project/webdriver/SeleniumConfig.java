@@ -55,14 +55,14 @@ public class SeleniumConfig {
      * 추후 드라이버 이름을 환경변수로 받아 실행시킬 계획
      * ex. firefoxdriver, firefoxOptions 부분을 파라미터로 받을 예정
      */
-    @Bean
+    @Bean(destroyMethod = SCOPE_DEFAULT)
     public WebDriverManager webDriverManager() {
         return WebDriverManager.firefoxdriver()
                 .capabilities(firefoxOptions())
                 .remoteAddress("http://172.20.3.16:4444/wd/hub");
     }
 
-    @Bean(destroyMethod = SCOPE_DEFAULT) // 실험적임 추후 변경할 가능성이 높음
+    @Bean(destroyMethod = SCOPE_DEFAULT)
     public RemoteWebDriver webDriver() {
         WebDriver webDriver = webDriverManager().create();
         Assert.isInstanceOf(RemoteWebDriver.class, webDriver,
