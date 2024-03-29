@@ -2,7 +2,7 @@ package com.project.common;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocator;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
@@ -18,7 +18,7 @@ import static com.project.webdriver.SeleniumConfig.WAIT_TIMEOUT_SECONDS;
 @RequiredArgsConstructor
 public class ReactiveElementLocatorFactory implements ElementLocatorFactory {
 
-    private final RemoteWebDriver searchContext;
+    private final WebDriver searchContext;
 
     @Override
     public ElementLocator createLocator(Field field) {
