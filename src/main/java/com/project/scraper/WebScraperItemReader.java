@@ -16,6 +16,9 @@ public abstract class WebScraperItemReader<T> extends AbstractItemCountingItemSt
     /** 데이터 추출 전 준비를 합니다*/
     protected abstract void prepare();
 
+    /** 데이터를 추출합니다. */
+    protected abstract T fetchData();
+
 
     @Autowired
     public final void setWebDriverManager(WebDriverManager webDriverManager) {
@@ -37,6 +40,16 @@ public abstract class WebScraperItemReader<T> extends AbstractItemCountingItemSt
         } catch(Throwable e) {
             closeWebDriverSession();
             throw new ItemStreamException("An error occurred while opening the scraper.", e);
+        }
+    }
+
+    @Override
+    protected T doRead() {
+        try {
+            return fetchData();
+        } catch(Throwable e) {
+            closeWebDriverSession();
+            throw new ItemStreamException("An error occurred while fetching web data.", e);
         }
     }
 

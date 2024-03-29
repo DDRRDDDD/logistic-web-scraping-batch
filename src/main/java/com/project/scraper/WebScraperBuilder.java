@@ -59,7 +59,7 @@ public class WebScraperBuilder<T> {
             protected void prepare() {
                 setName(contextName);
 
-                if(!ObjectUtils.isEmpty(prepareScrapers)){
+                if(ObjectUtils.isEmpty(prepareScrapers)){
                     return ;
                 }
 
@@ -68,7 +68,7 @@ public class WebScraperBuilder<T> {
                 );
             }
             @Override
-            protected T doRead() {
+            protected T fetchData() {
                 if(ObjectUtils.isEmpty(readScraper)){
                     return null;
                 }
