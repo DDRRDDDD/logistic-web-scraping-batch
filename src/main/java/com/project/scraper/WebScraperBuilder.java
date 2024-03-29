@@ -56,13 +56,16 @@ public class WebScraperBuilder<T> {
     public WebScraperItemReader<T> build() {
         return new WebScraperItemReader<>() {
             @Override
-            protected void doOpen() {
+            protected void prepare() {
                 setName(contextName);
+
                 if(!ObjectUtils.isEmpty(prepareScrapers)){
-                    prepareScrapers.forEach(
-                        (prepare) -> scenario.setup(prepare.apply(this, scenario))
-                    );
+                    return ;
                 }
+
+                prepareScrapers.forEach(
+                        (prepare) -> scenario.setup(prepare.apply(this, scenario))
+                );
             }
             @Override
             protected T doRead() {
