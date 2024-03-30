@@ -24,8 +24,12 @@ public class MainPage extends BasePage {
 
 
     public MainPage login(UserInfo userInfo) {
+        loginIdTextInput.click();
         loginIdTextInput.sendKeys(userInfo.getUserId());
+
+        loginPwTextInput.click();
         loginPwTextInput.sendKeys(userInfo.getUserPassword());
+
         loginButton.click();
         return this;
     }
