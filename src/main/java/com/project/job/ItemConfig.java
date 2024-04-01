@@ -88,6 +88,7 @@ public class ItemConfig {
         return new JdbcBatchItemWriterBuilder<Map<String, String>>()
                 .dataSource(allocationDataSource)
                 .sql(SqlMappedContext.INSERT_ALLOCATION)
+                .assertUpdates(false)
                 .columnMapped()
                 .build();
     }
