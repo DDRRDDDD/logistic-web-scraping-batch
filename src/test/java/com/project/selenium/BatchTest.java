@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.project.job.JobConfig.*;
+import static com.project.batch.JobConfig.*;
 
 @SpringBootTest
 @SpringBatchTest

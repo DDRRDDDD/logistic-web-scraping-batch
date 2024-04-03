@@ -1,6 +1,6 @@
-package com.project.job;
+package com.project.batch;
 
-import com.project.datasource.sql.SqlMappedContext;
+import com.project.batch.sql.SqlMappedContext;
 import com.project.metadata.DateRange;
 import com.project.metadata.UserInfo;
 import com.project.page.Scenario;

@@ -1,4 +1,4 @@
-package com.project.job;
+package com.project.batch;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static com.project.job.StepConfig.DAILY_A_SCENARIO_STEP;
-import static com.project.job.StepConfig.MONTHLY_A_SCENARIO_STEP;
+import static com.project.batch.StepConfig.DAILY_A_SCENARIO_STEP;
+import static com.project.batch.StepConfig.MONTHLY_A_SCENARIO_STEP;
 
 
 @Configuration

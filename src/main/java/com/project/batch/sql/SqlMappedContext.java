@@ -1,4 +1,4 @@
-package com.project.datasource.sql;
+package com.project.batch.sql;
 
 public interface SqlMappedContext {
 

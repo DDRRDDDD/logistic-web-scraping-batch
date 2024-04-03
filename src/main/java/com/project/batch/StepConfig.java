@@ -1,8 +1,7 @@
-package com.project.job;
+package com.project.batch;
 
 import com.project.scraper.WebScraperItemReader;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.core.ChunkListener;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.repository.JobRepository;
