@@ -39,7 +39,10 @@ public class Scenario {
         return (T) pageObject;
     }
 
+
     public void setup(Object pageObject) {
         this.pageObject = pageObject;
     }
+
+
 }

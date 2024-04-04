@@ -26,5 +26,6 @@ public @interface Page {
 
     @AliasFor(annotation=Scope.class, attribute="scopeName")
     String pageScope() default ConfigurableBeanFactory.SCOPE_SINGLETON;
+
 }
 

@@ -24,6 +24,7 @@ public class WebScraperBuilder<T> {
         this.contextName = contextName;
     }
 
+
     public WebScraperBuilder(String contextName, Scenario scenario) {
         this.contextName = contextName;
         this.scenario = scenario;
@@ -35,23 +36,27 @@ public class WebScraperBuilder<T> {
         return this;
     }
 
+
     public WebScraperBuilder<T> scenario(Scenario scenario) {
         this.scenario = scenario;
         return this;
     }
 
+
     public WebScraperBuilder<T> prepare(BiFunction<WebScraperItemReader<T>, Scenario, ?> prepareScraper) {
-        if(ObjectUtils.isEmpty(prepareScrapers)){
+        if (ObjectUtils.isEmpty(prepareScrapers)) {
             prepareScrapers = new ArrayList<>();
         }
         prepareScrapers.add(prepareScraper);
         return this;
     }
 
+
     public WebScraperBuilder<T> read(BiFunction<WebScraperItemReader<T>, Scenario, T> readScraper) {
         this.readScraper = readScraper;
         return this;
     }
+
 
     public WebScraperItemReader<T> build() {
         return new WebScraperItemReader<>() {
@@ -59,29 +64,33 @@ public class WebScraperBuilder<T> {
             protected void prepare() {
                 setName(contextName);
 
-                if(ObjectUtils.isEmpty(prepareScrapers)){
-                    return ;
+                if (ObjectUtils.isEmpty(prepareScrapers)) {
+                    return;
                 }
 
                 prepareScrapers.forEach(
                         (prepare) -> scenario.setup(prepare.apply(this, scenario))
                 );
             }
+
             @Override
             protected T fetchData() {
-                if(ObjectUtils.isEmpty(readScraper)){
+                if (ObjectUtils.isEmpty(readScraper)) {
                     return null;
                 }
 
                 T result = readScraper.apply(this, scenario);
 
-                if(ObjectUtils.isEmpty(result)){
+                if (ObjectUtils.isEmpty(result)) {
                     return null;
                 }
 
                 log.info("Record  was retrieved. - [Item counts : {}]", getCurrentItemCount());
                 return result;
             }
+
         };
     }
+
+
 }

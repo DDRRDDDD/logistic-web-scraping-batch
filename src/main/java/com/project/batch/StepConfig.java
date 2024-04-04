@@ -32,8 +32,7 @@ public class StepConfig {
 
 
     public StepConfig(@Qualifier("allocationTransactionManager") PlatformTransactionManager transactionManager,
-                      JobRepository jobRepository)
-    {
+                      JobRepository jobRepository) {
         this.jobRepository = jobRepository;
         this.allocationTransactionManager = transactionManager;
     }
@@ -61,5 +60,6 @@ public class StepConfig {
                 .writer(itemWriter)
                 .build();
     }
+
 
 }

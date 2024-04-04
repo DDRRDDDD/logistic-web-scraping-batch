@@ -25,7 +25,7 @@ public class JobConfig {
 
 
     @Bean(DAILY_A_SCENARIO_JOB)
-    public Job dailyAllocationJob(@Qualifier(DAILY_A_SCENARIO_STEP) Step dailyStep){
+    public Job dailyAllocationJob(@Qualifier(DAILY_A_SCENARIO_STEP) Step dailyStep) {
         return new JobBuilder(DAILY_A_SCENARIO_JOB, jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .start(dailyStep)
@@ -33,12 +33,13 @@ public class JobConfig {
     }
 
 
-
     @Bean(MONTHLY_A_SCENARIO_JOB)
-    public Job monthlyAllocationJob(@Qualifier(MONTHLY_A_SCENARIO_STEP) Step monthlyStep){
+    public Job monthlyAllocationJob(@Qualifier(MONTHLY_A_SCENARIO_STEP) Step monthlyStep) {
         return new JobBuilder(MONTHLY_A_SCENARIO_JOB, jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .start(monthlyStep)
                 .build();
     }
+
+
 }

@@ -10,4 +10,5 @@ public class BasePage {
         return PageBeanFactory.getPage(Header.class);
     }
 
+
 }

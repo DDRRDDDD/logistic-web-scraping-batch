@@ -55,18 +55,24 @@ public class PageBeanFactory {
 
         private static ApplicationContext context;
 
+
         @Override
         public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
             ApplicationContextProvider.context = applicationContext;
         }
 
+
         private static ApplicationContext getContext(){
             return context;
         }
 
+
         private static Environment getEnvironment() {
             return context.getEnvironment();
         }
+
+
     }
+
 
 }

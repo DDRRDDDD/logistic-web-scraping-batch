@@ -18,7 +18,6 @@ public class MainPage extends BasePage {
     @FindBy(id = "btn_login")
     private WebElement loginButton;
 
-
     @FindBy(css = "a[href=\"javascript:goAllocList();\"]")
     private WebElement allocationPageButton;
 
@@ -34,9 +33,11 @@ public class MainPage extends BasePage {
         return this;
     }
 
+
     public AllocationPage goToAllocationPage() {
         allocationPageButton.click();
         return PageBeanFactory.getPage(AllocationPage.class);
     }
+
 
 }

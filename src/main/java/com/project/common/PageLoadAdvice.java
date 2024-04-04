@@ -22,6 +22,7 @@ public class PageLoadAdvice implements MethodInterceptor {
 
     private final WebDriverWait webDriverWait;
 
+
     @Override
     public Object invoke(@Nonnull MethodInvocation invocation) throws Throwable {
         webDriverWait.until(unusedWebDriver -> isPageLoaded());
@@ -30,8 +31,11 @@ public class PageLoadAdvice implements MethodInterceptor {
         return invocation.proceed();
     }
 
+
     public boolean isPageLoaded() {
         return webDriver.executeScript("return document.readyState")
                 .toString().equals(COMPLETE_READY_STATE);
     }
+
+
 }

@@ -30,9 +30,11 @@ public class WebControlAgent {
         return WebDriverProvider.getWebDriverWait().until(condition);
     }
 
+
     public static void moveBy(WebElement element) {
         WebDriverProvider.getWebActions().moveToElement(element).perform();
     }
+
 
     public static void switchToWindow() {
         WebDriver webDriver = WebDriverProvider.getWebDriver();
@@ -44,9 +46,11 @@ public class WebControlAgent {
                 .ifPresent(webDriver.switchTo()::window);
     }
 
+
     public static void closeCurrentWindow() {
         WebDriverProvider.getWebDriver().close();
     }
+
 
     private static String getCurrentWindowHandle() {
         try{
@@ -62,25 +66,34 @@ public class WebControlAgent {
 
         private static ApplicationContext context;
 
+
         @Override
         public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
             WebDriverProvider.context = applicationContext;
         }
 
+
         private static WebDriver getWebDriver() {
             return context.getBean(RemoteWebDriver.class);
         }
+
 
         private static JavascriptExecutor getJavascriptExecutor() {
             return context.getBean(RemoteWebDriver.class);
         }
 
+
         private static WebDriverWait getWebDriverWait() {
             return context.getBean(WebDriverWait.class);
         }
 
+
         private static Actions getWebActions() {
             return new Actions(getWebDriver());
         }
+
+
     }
+
+
 }

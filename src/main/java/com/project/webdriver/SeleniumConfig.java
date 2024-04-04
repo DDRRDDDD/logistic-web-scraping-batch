@@ -30,6 +30,7 @@ public class SeleniumConfig {
 
     public static final Duration DRIVER_POLLING_INTERVAL_DURATION = Duration.ofSeconds(POLLING_INTERVAL);
 
+
     @Bean
     public Capabilities chromeOptions() {
         ChromeOptions options = new ChromeOptions();
@@ -41,6 +42,7 @@ public class SeleniumConfig {
         return options;
     }
 
+
     @Bean
     public Capabilities firefoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
@@ -50,6 +52,7 @@ public class SeleniumConfig {
                 .addPreference("dom.webnotifications.enabled", false);
         return options;
     }
+
 
     /**
      * 추후 드라이버 이름을 환경변수로 받아 실행시킬 계획
@@ -62,6 +65,7 @@ public class SeleniumConfig {
                 .remoteAddress("http://172.20.3.16:4444/wd/hub");
     }
 
+
     @Bean(destroyMethod = SCOPE_DEFAULT)
     public RemoteWebDriver webDriver() {
         WebDriver webDriver = webDriverManager().create();
@@ -70,6 +74,7 @@ public class SeleniumConfig {
         return (RemoteWebDriver) webDriver;
     }
 
+
     @Bean
     public WebDriverWait webDriverWait(WebDriver webDriver) {
         WebDriverWait driverWait = new WebDriverWait(webDriver, DRIVER_WAIT_DURATION);
@@ -77,4 +82,6 @@ public class SeleniumConfig {
         driverWait.ignoring(NoSuchElementException.class);
         return driverWait;
     }
+
+
 }

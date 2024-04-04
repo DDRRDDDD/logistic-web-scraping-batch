@@ -29,6 +29,7 @@ public class ItemConfig {
 
     private final UserInfo userInfo;
 
+
     public ItemConfig(@Qualifier("allocationDataSource") DataSource allocationDataSource,
                       @Qualifier("dailyDateRange") DateRange dailyDateRange,
                       @Qualifier("monthlyDateRange") DateRange monthlyDateRange,
@@ -39,6 +40,7 @@ public class ItemConfig {
         this.monthlyDateRange = monthlyDateRange;
         this.userInfo = userInfo;
     }
+
 
     @Bean
     @StepScope
@@ -92,4 +94,6 @@ public class ItemConfig {
                 .columnMapped()
                 .build();
     }
+
+
 }

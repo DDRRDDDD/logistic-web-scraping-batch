@@ -17,7 +17,7 @@ public class DataSourceConfig {
 
     @Bean
     @ConfigurationProperties("spring.datasource.hikari.allocation-data")
-    public DataSource allocationDataSource(){
+    public DataSource allocationDataSource() {
         return DataSourceBuilder.create()
                 .type(HikariDataSource.class)
                 .build();
@@ -25,7 +25,7 @@ public class DataSourceConfig {
 
 
     @Bean
-    public PlatformTransactionManager allocationTransactionManager(){
+    public PlatformTransactionManager allocationTransactionManager() {
         return new JdbcTransactionManager(allocationDataSource());
     }
 
@@ -33,7 +33,7 @@ public class DataSourceConfig {
     @Bean
     @Primary
     @ConfigurationProperties("spring.datasource.hikari.batch-status")
-    public DataSource batchStatusDataSource(){
+    public DataSource batchStatusDataSource() {
         return DataSourceBuilder.create()
                 .type(HikariDataSource.class)
                 .build();

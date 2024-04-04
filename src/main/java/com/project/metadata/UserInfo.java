@@ -11,11 +11,12 @@ public class UserInfo {
     private final String userId;
 
     private final String userPassword;
-    public UserInfo(@Value("${dev.scraper.id}") String userId,
-                    @Value("${dev.scraper.pw}") String userPassword)
-    {
+
+
+    public UserInfo(@Value("${dev.scraper.id}") String userId, @Value("${dev.scraper.pw}") String userPassword) {
         this.userId = userId;
         this.userPassword = userPassword;
     }
+
 
 }

@@ -20,12 +20,16 @@ public class AllocationPage extends BasePage {
     private static final String ATTRIBUTE_NAME = "value";
     private static final String SEARCH_POSSIBLE_VALUE = "검색가능";
 
+
     @FindBy(id = "startDate")
     private WebElement startDateInput;
+
     @FindBy(id = "endDate")
     private WebElement endDateInput;
+
     @FindBy(id = "countTime")
     private WebElement countTimeText;
+
     @FindBy(className = "ok01")
     private WebElement searchButton;
 
@@ -46,6 +50,7 @@ public class AllocationPage extends BasePage {
         return this;
     }
 
+
     /**
      * 메서드 호출시 orderCodesByDataTable 의 값이 변경될 수 있습니다.
      */
@@ -58,16 +63,19 @@ public class AllocationPage extends BasePage {
         return this;
     }
 
+
     public int getDataTableCount() {
         return orderCodesByDataTable.size();
     }
 
+
     public AllocationDataPopup openAllocationDataPopupByOrderCodeIndex(int orderCodeIndex) {
-        if (orderCodeIndex < orderCodesByDataTable.size()){
+        if (orderCodeIndex < orderCodesByDataTable.size()) {
             orderCodesByDataTable.get(orderCodeIndex).click();
             return PageBeanFactory.getPage(AllocationDataPopup.class);
         }
         return new AllocationDataPopup.VoidDataPopup();
     }
+
 
 }

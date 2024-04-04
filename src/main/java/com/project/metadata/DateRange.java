@@ -18,13 +18,15 @@ public class DateRange {
     private final String startDateOfMonth;
     private final String endDateOfMonth;
 
-    public static DateRange ofYesterday(@NonNull String dateParameter){
+
+    public static DateRange ofYesterday(@NonNull String dateParameter) {
         LocalDate date = LocalDate.parse(dateParameter, ISO_LOCAL_DATE).minusDays(ONE_DAY);
 
         return new DateRange(date.toString(), date.toString());
     }
 
-    public static DateRange ofMonth(@NonNull String dataParameter){
+
+    public static DateRange ofMonth(@NonNull String dataParameter) {
         LocalDate date = LocalDate.parse(dataParameter, ISO_LOCAL_DATE);
 
         String startDateOfMonth = date.withDayOfMonth(ONE_DAY).toString();
@@ -33,7 +35,8 @@ public class DateRange {
         return new DateRange(startDateOfMonth, endDateOfMonth);
     }
 
-    public static DateRange ofYear(@NonNull String dateParameter){
+
+    public static DateRange ofYear(@NonNull String dateParameter) {
         LocalDate date = LocalDate.parse(dateParameter, ISO_LOCAL_DATE);
 
         String startDateOfMonth = date.with(TemporalAdjusters.firstDayOfYear()).toString();
@@ -41,4 +44,6 @@ public class DateRange {
 
         return new DateRange(startDateOfMonth, endDateOfMonth);
     }
+
+
 }

@@ -26,10 +26,12 @@ public class AllocationDataPopup {
 
     private Map<String, String> resultData;
 
+
     @PostConstruct
     public void openPopup() {
         WebControlAgent.switchToWindow();
     }
+
 
     public Map<String, String> extractAllocationData() {
         setResultData();
@@ -37,6 +39,7 @@ public class AllocationDataPopup {
         WebControlAgent.switchToWindow();
         return resultData;
     }
+
 
     /**
      * Map을 감싸는 클래스 생각 중
@@ -51,10 +54,11 @@ public class AllocationDataPopup {
 
 
     static class VoidDataPopup extends AllocationDataPopup {
-
         @Override
         public Map<String, String> extractAllocationData() {
             return null;
         }
     }
+
+
 }

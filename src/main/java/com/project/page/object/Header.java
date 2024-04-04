@@ -19,10 +19,12 @@ public class Header {
     @FindBy(id = "btn_header_orderStatus")
     private WebElement myPageLinkAnchor;
 
+
     public MainPage goToMainPage() {
         mainLogoAnchor.click();
         return PageBeanFactory.getPage(MainPage.class);
     }
+
 
     // 마이페이지 메뉴를 선택하여 해당 페이지로 이동하는 메서드
     public <T> T goToPageByMyPageMenu(Menu<T> menu) {
@@ -35,6 +37,7 @@ public class Header {
         WebControlAgent.waitUntil(expectedCondition).click();
         return PageBeanFactory.getPage(menu.getPageClass());
     }
+
 
 }
 

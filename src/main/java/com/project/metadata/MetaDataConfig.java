@@ -10,21 +10,23 @@ import org.springframework.context.annotation.Configuration;
 public class MetaDataConfig {
 
     @Bean
-    public Menu<AllocationPage> allocationPageMenu(){
+    public Menu<AllocationPage> allocationPageMenu() {
         return new Menu<>("배차내역조회", AllocationPage.class);
     }
 
 
     @Bean
     @JobScope
-    public DateRange dailyDateRange(@Value("#{jobParameters[requestDate]}") String currentDate){
+    public DateRange dailyDateRange(@Value("#{jobParameters[requestDate]}") String currentDate) {
         return DateRange.ofYesterday(currentDate);
     }
 
 
     @Bean
     @JobScope
-    public DateRange monthlyDateRange(@Value("#{jobParameters[requestDate]}") String currentDate){
+    public DateRange monthlyDateRange(@Value("#{jobParameters[requestDate]}") String currentDate) {
         return DateRange.ofMonth(currentDate);
     }
+
+
 }

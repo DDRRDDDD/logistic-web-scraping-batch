@@ -20,6 +20,7 @@ public class ReactiveElementLocatorFactory implements ElementLocatorFactory {
 
     private final WebDriver searchContext;
 
+
     @Override
     public ElementLocator createLocator(Field field) {
         return new AjaxElementLocator(searchContext, field, WAIT_TIMEOUT_SECONDS) {
@@ -32,4 +33,6 @@ public class ReactiveElementLocatorFactory implements ElementLocatorFactory {
             }
         };
     }
+
+
 }
