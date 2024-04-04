@@ -50,6 +50,76 @@
   - 기존 Selenium POM 패턴을 사용
   - @Page 어노테이션을 사용하여 Page Bean을 정의
   - Page Bean은 빌터패턴 사용을 권장 (시나리오를 구성하기 편리해짐)
+  - ex)
+    ```java
+    @Page(homePage = true, url = "${dev.scraper.mainUrl}")
+    public class MainPage extends BasePage {
+
+      @FindBy(id = "login_id")
+      private WebElement loginIdTextInput;
+  
+      @FindBy(id = "login_pass")
+      private WebElement loginPwTextInput;
+  
+      @FindBy(id = "btn_login")
+      private WebElement loginButton;
+  
+      @FindBy(id = "allo_list")
+      private WebElement allocationPageButton;
+
+
+      public MainPage login(UserInfo userInfo) {
+          loginIdTextInput.click();
+          loginIdTextInput.sendKeys(userInfo.getUserId());
+  
+          loginPwTextInput.click();
+          loginPwTextInput.sendKeys(userInfo.getUserPassword());
+  
+          loginButton.click();
+          return this;
+      }
+
+
+      public AllocationPage goToAllocationPage() {
+          allocationPageButton.click();
+          return PageBeanFactory.getPage(AllocationPage.class);
+      }
+
+
+    }
+    ```
 
 - Web Scraper DSL
   - 절차적으로 시나리오를 구성
+  - ex)
+    ```java
+    @Configuration
+    @RequiredArgsConstructor
+    public class ItemConfig {
+
+      private final DateRange dailyDateRange;
+
+      private final UserInfo userInfo;
+ 
+      @Bean
+      @StepScope
+      public WebScraperItemReader<Map<String, String>> dailyAScenarioScraper() {
+          return new WebScraperBuilder<Map<String, String>>("daily.A.scenario")
+                  .scenario(Scenario.startWith(MainPage.class))
+                  .prepare((reader, scenario) ->
+                      scenario.expectedPage(MainPage.class)
+                              .login(userInfo)
+                              .goToAllocationPage()
+                              .setDateRange(dailyDateRange)
+                              .clickSearchButton()
+                  )
+                  .read((reader, scenario) ->
+                      scenario.expectedPage(AllocationPage.class)
+                              .openAllocationDataPopupByOrderCodeIndex(reader.getCurrentItemIndex())
+                              .extractAllocationData()
+                  )
+                  .build();
+      }
+    
+    }     
+    ```
