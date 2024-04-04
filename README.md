@@ -44,3 +44,12 @@
     ├── SeleniumConfig : selenium, webdriver의 타입, webdrivermanager 설정 클래스
     └── WebControlAgent : webdriver의 동작을 정의한 유틸 클래스
 ```
+## 프로젝트 규칙
+
+- Page Bean
+  - 기존 Selenium POM 패턴을 사용
+  - @Page 어노테이션을 사용하여 Page Bean을 정의
+  - Page Bean은 빌터패턴 사용을 권장 (시나리오를 구성하기 편리해짐)
+
+- Web Scraper DSL
+  - 절차적으로 시나리오를 구성
