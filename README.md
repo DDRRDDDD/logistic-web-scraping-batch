@@ -44,7 +44,7 @@
     ├── SeleniumConfig : selenium, webdriver의 타입, webdrivermanager 설정 클래스
     └── WebControlAgent : webdriver의 동작을 정의한 유틸 클래스
 ```
-## 프로젝트 규칙
+## 프로젝트 가이드
 
 - Page Bean
   - 기존 Selenium POM 패턴을 사용
